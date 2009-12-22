@@ -204,7 +204,7 @@ AC_ARG_ENABLE(ti-c55x, [  --enable-ti-c55x        Enable support for TI C55X DSP
   AC_DEFINE([TI_C55X], , [Enable support for TI C55X DSP])
 fi])
 
-AC_ARG_ENABLE(vorbis-psy, [  --enable-psy    Enable the Vorbis psy model],
+AC_ARG_ENABLE(vorbis-psy, [  --enable-vorbis-psy    Enable the Vorbis psy model],
 [if test "$enableval" = yes; then
   vorbis_psy=yes;
   AC_DEFINE([VORBIS_PSYCHO], , [Enable support for the Vorbis psy model])
@@ -249,6 +249,8 @@ AC_SUBST(FFT_PKGCONFIG)
 
 AM_CONDITIONAL(BUILD_VORBIS_PSY, [test "x$vorbis_psy" = "xyes"])
 
+PKG_CHECK_MODULES([SPEEXDSP], [speexdsp], [AC_DEFINE([USE_SPEEXDSP], [], [Use SpeexDSP library])], [speexdsp_failed=yes])
+
 AC_CHECK_SIZEOF(short)
 AC_CHECK_SIZEOF(int)
 AC_CHECK_SIZEOF(long)
@@ -285,22 +287,19 @@ AC_SUBST(SIZE32)
 AC_DEFINE([_BUILD_SPEEX], [], [Defined only when Speex itself is build built])
 
 AC_OUTPUT([Makefile libspeex/Makefile src/Makefile doc/Makefile Speex.spec
-           include/Makefile include/speex/Makefile speex.pc speexdsp.pc
+           include/Makefile include/speex/Makefile speex.pc
            win32/Makefile win32/libspeex/Makefile win32/speexenc/Makefile
            win32/speexdec/Makefile symbian/Makefile 
            win32/VS2003/Makefile
            win32/VS2003/tests/Makefile
            win32/VS2003/libspeex/Makefile
-           win32/VS2003/libspeexdsp/Makefile
            win32/VS2003/speexdec/Makefile
            win32/VS2003/speexenc/Makefile
            win32/VS2005/Makefile
            win32/VS2005/libspeex/Makefile
            win32/VS2005/speexdec/Makefile
            win32/VS2005/speexenc/Makefile
-           win32/VS2005/libspeexdsp/Makefile
            win32/VS2005/tests/Makefile
-           win32/VS2008/libspeexdsp/Makefile
            win32/VS2008/Makefile
            win32/VS2008/speexdec/Makefile
            win32/VS2008/tests/Makefile

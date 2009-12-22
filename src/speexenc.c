@@ -52,7 +52,9 @@
 #include "wav_io.h"
 #include "../include/speex/speex_header.h"
 #include "../include/speex/speex_stereo.h"
-#include "../include/speex/speex_preprocess.h"
+#ifdef USE_SPEEXDSP
+#include <speex/speex_preprocess.h>
+#endif
 
 #if defined WIN32 || defined _WIN32
 /* We need the following two to set stdout to binary */
@@ -225,8 +227,10 @@ void usage()
    printf (" --dtx              Enable file-based discontinuous transmission (DTX)\n"); 
    printf (" --comp n           Set encoding complexity (0-10), default 3\n"); 
    printf (" --nframes n        Number of frames per Ogg packet (1-10), default 1\n"); 
+#ifdef USE_SPEEXDSP
    printf (" --denoise          Denoise the input before encoding\n"); 
    printf (" --agc              Apply adaptive gain control (AGC) before encoding\n"); 
+#endif
    printf (" --no-highpass      Disable the encoder's built-in high-pass filter\n");
    printf (" --skeleton         Outputs ogg skeleton metadata (may cause incompatibilities)\n");
    printf (" --comment          Add the given string as an extra comment. This may be\n");
@@ -288,8 +292,10 @@ int main(int argc, char **argv)
       {"bitrate", required_argument, NULL, 0},
       {"nframes", required_argument, NULL, 0},
       {"comp", required_argument, NULL, 0},
+#ifdef USE_SPEEXDSP
       {"denoise", no_argument, NULL, 0},
       {"agc", no_argument, NULL, 0},
+#endif
       {"no-highpass", no_argument, NULL, 0},
       {"skeleton",no_argument,NULL, 0},
       {"help", no_argument, NULL, 0},
@@ -336,8 +342,10 @@ int main(int argc, char **argv)
    char first_bytes[12];
    int wave_input=0;
    spx_int32_t tmp;
+#ifdef USE_SPEEXDSP
    SpeexPreprocessState *preprocess = NULL;
    int denoise_enabled=0, agc_enabled=0;
+#endif
    int highpass_enabled=1;
    int output_rate=0;
    spx_int32_t lookahead = 0;
@@ -409,12 +417,14 @@ int main(int argc, char **argv)
          } else if (strcmp(long_options[option_index].name,"comp")==0)
          {
             complexity = atoi (optarg);
+#ifdef USE_SPEEXDSP
          } else if (strcmp(long_options[option_index].name,"denoise")==0)
          {
             denoise_enabled=1;
          } else if (strcmp(long_options[option_index].name,"agc")==0)
          {
             agc_enabled=1;
+#endif
          } else if (strcmp(long_options[option_index].name,"no-highpass")==0)
          {
             highpass_enabled=0;
@@ -716,6 +726,7 @@ int main(int argc, char **argv)
 
    speex_encoder_ctl(st, SPEEX_GET_LOOKAHEAD, &lookahead);
    
+#ifdef USE_SPEEXDSP
    if (denoise_enabled || agc_enabled)
    {
       preprocess = speex_preprocess_state_init(frame_size, rate);
@@ -723,7 +734,7 @@ int main(int argc, char **argv)
       speex_preprocess_ctl(preprocess, SPEEX_PREPROCESS_SET_AGC, &agc_enabled);
       lookahead += frame_size;
    }
-
+#endif
    /* first packet should be the skeleton header. */
 
    if (with_skeleton) {
@@ -826,9 +837,10 @@ int main(int argc, char **argv)
       if (chan==2)
          speex_encode_stereo_int(input, frame_size, &bits);
 
+#ifdef USE_SPEEXDSP
       if (preprocess)
          speex_preprocess(preprocess, input, NULL);
-
+#endif
       speex_encode_int(st, input, &bits);
       
       nb_encoded += frame_size;
