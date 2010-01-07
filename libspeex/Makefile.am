@@ -35,7 +35,7 @@ noinst_HEADERS = 	arch.h 	bfin.h cb_search_arm4.h 	cb_search_bfin.h 	cb_search_s
 		fixed_arm5e.h 	fixed_bfin.h 	fixed_debug.h 	lpc.h 	lpc_bfin.h 	ltp.h 	ltp_arm4.h \
 		ltp_sse.h 	math_approx.h 		misc_bfin.h 	nb_celp.h 	quant_lsp.h 	sb_celp.h \
 		stack_alloc.h 	vbr.h 	vq.h 	vq_arm4.h 	vq_bfin.h 	vq_sse.h cb_search.h fftwrap.h \
-	filterbank.h fixed_generic.h lsp.h lsp_bfin.h ltp_bfin.h modes.h os_support.h \
+	fixed_generic.h lsp.h lsp_bfin.h ltp_bfin.h modes.h os_support.h \
 	quant_lsp_bfin.h smallft.h vorbis_psy.h
 
 
