@@ -141,8 +141,6 @@
 		73814B4A0907FC9900C478FC /* speex.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = speex.c; path = ../libspeex/speex.c; sourceTree = SOURCE_ROOT; };
 		73814B4B0907FC9900C478FC /* stack_alloc.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = stack_alloc.h; path = ../libspeex/stack_alloc.h; sourceTree = SOURCE_ROOT; };
 		73814B4C0907FC9900C478FC /* stereo.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = stereo.c; path = ../libspeex/stereo.c; sourceTree = SOURCE_ROOT; };
-		73814B4D0907FC9900C478FC /* testdenoise.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = testdenoise.c; path = ../libspeex/testdenoise.c; sourceTree = SOURCE_ROOT; };
-		73814B4E0907FC9900C478FC /* testecho.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = testecho.c; path = ../libspeex/testecho.c; sourceTree = SOURCE_ROOT; };
 		73814B4F0907FC9900C478FC /* testenc_uwb.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = testenc_uwb.c; path = ../libspeex/testenc_uwb.c; sourceTree = SOURCE_ROOT; };
 		73814B500907FC9900C478FC /* testenc_wb.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = testenc_wb.c; path = ../libspeex/testenc_wb.c; sourceTree = SOURCE_ROOT; };
 		73814B510907FC9900C478FC /* testenc.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = testenc.c; path = ../libspeex/testenc.c; sourceTree = SOURCE_ROOT; };
@@ -267,8 +265,6 @@
 				73814B4A0907FC9900C478FC /* speex.c */,
 				73814B4B0907FC9900C478FC /* stack_alloc.h */,
 				73814B4C0907FC9900C478FC /* stereo.c */,
-				73814B4D0907FC9900C478FC /* testdenoise.c */,
-				73814B4E0907FC9900C478FC /* testecho.c */,
 				73814B4F0907FC9900C478FC /* testenc_uwb.c */,
 				73814B500907FC9900C478FC /* testenc_wb.c */,
 				73814B510907FC9900C478FC /* testenc.c */,

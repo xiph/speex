@@ -48,8 +48,6 @@
 		738837540B193581005C7A69 /* _kiss_fft_guts.h in Headers */ = {isa = PBXBuildFile; fileRef = 738837460B193581005C7A69 /* _kiss_fft_guts.h */; };
 		738837550B193581005C7A69 /* fftwrap.c in Sources */ = {isa = PBXBuildFile; fileRef = 738837470B193581005C7A69 /* fftwrap.c */; };
 		738837560B193581005C7A69 /* fftwrap.h in Headers */ = {isa = PBXBuildFile; fileRef = 738837480B193581005C7A69 /* fftwrap.h */; };
-		738837570B193581005C7A69 /* filterbank.c in Sources */ = {isa = PBXBuildFile; fileRef = 738837490B193581005C7A69 /* filterbank.c */; };
-		738837580B193581005C7A69 /* filterbank.h in Headers */ = {isa = PBXBuildFile; fileRef = 7388374A0B193581005C7A69 /* filterbank.h */; };
 		738837590B193581005C7A69 /* kiss_fft.c in Sources */ = {isa = PBXBuildFile; fileRef = 7388374B0B193581005C7A69 /* kiss_fft.c */; };
 		7388375A0B193581005C7A69 /* kiss_fft.h in Headers */ = {isa = PBXBuildFile; fileRef = 7388374C0B193581005C7A69 /* kiss_fft.h */; };
 		7388375B0B193581005C7A69 /* kiss_fftr.c in Sources */ = {isa = PBXBuildFile; fileRef = 7388374D0B193581005C7A69 /* kiss_fftr.c */; };
@@ -68,7 +66,6 @@
 		738837810B19378C005C7A69 /* exc_5_64_table.c in Sources */ = {isa = PBXBuildFile; fileRef = 73814B130907FC9900C478FC /* exc_5_64_table.c */; };
 		738837820B19378E005C7A69 /* exc_8_128_table.c in Sources */ = {isa = PBXBuildFile; fileRef = 73814B150907FC9900C478FC /* exc_8_128_table.c */; };
 		738837830B193791005C7A69 /* fftwrap.c in Sources */ = {isa = PBXBuildFile; fileRef = 738837470B193581005C7A69 /* fftwrap.c */; };
-		738837840B193792005C7A69 /* filterbank.c in Sources */ = {isa = PBXBuildFile; fileRef = 738837490B193581005C7A69 /* filterbank.c */; };
 		738837850B193793005C7A69 /* filters.c in Sources */ = {isa = PBXBuildFile; fileRef = 73814B1C0907FC9900C478FC /* filters.c */; };
 		738837860B193795005C7A69 /* gain_table.c in Sources */ = {isa = PBXBuildFile; fileRef = 73814B240907FC9900C478FC /* gain_table.c */; };
 		738837870B193796005C7A69 /* gain_table_lbr.c in Sources */ = {isa = PBXBuildFile; fileRef = 73814B230907FC9900C478FC /* gain_table_lbr.c */; };
@@ -165,8 +162,6 @@
 		73814B4A0907FC9900C478FC /* speex.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = speex.c; path = ../libspeex/speex.c; sourceTree = SOURCE_ROOT; };
 		73814B4B0907FC9900C478FC /* stack_alloc.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = stack_alloc.h; path = ../libspeex/stack_alloc.h; sourceTree = SOURCE_ROOT; };
 		73814B4C0907FC9900C478FC /* stereo.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = stereo.c; path = ../libspeex/stereo.c; sourceTree = SOURCE_ROOT; };
-		73814B4D0907FC9900C478FC /* testdenoise.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = testdenoise.c; path = ../libspeex/testdenoise.c; sourceTree = SOURCE_ROOT; };
-		73814B4E0907FC9900C478FC /* testecho.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = testecho.c; path = ../libspeex/testecho.c; sourceTree = SOURCE_ROOT; };
 		73814B4F0907FC9900C478FC /* testenc_uwb.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = testenc_uwb.c; path = ../libspeex/testenc_uwb.c; sourceTree = SOURCE_ROOT; };
 		73814B500907FC9900C478FC /* testenc_wb.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = testenc_wb.c; path = ../libspeex/testenc_wb.c; sourceTree = SOURCE_ROOT; };
 		73814B510907FC9900C478FC /* testenc.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = testenc.c; path = ../libspeex/testenc.c; sourceTree = SOURCE_ROOT; };
@@ -180,8 +175,6 @@
 		738837460B193581005C7A69 /* _kiss_fft_guts.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = _kiss_fft_guts.h; path = ../libspeex/_kiss_fft_guts.h; sourceTree = SOURCE_ROOT; };
 		738837470B193581005C7A69 /* fftwrap.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = fftwrap.c; path = ../libspeex/fftwrap.c; sourceTree = SOURCE_ROOT; };
 		738837480B193581005C7A69 /* fftwrap.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = fftwrap.h; path = ../libspeex/fftwrap.h; sourceTree = SOURCE_ROOT; };
-		738837490B193581005C7A69 /* filterbank.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = filterbank.c; path = ../libspeex/filterbank.c; sourceTree = SOURCE_ROOT; };
-		7388374A0B193581005C7A69 /* filterbank.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = filterbank.h; path = ../libspeex/filterbank.h; sourceTree = SOURCE_ROOT; };
 		7388374B0B193581005C7A69 /* kiss_fft.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = kiss_fft.c; path = ../libspeex/kiss_fft.c; sourceTree = SOURCE_ROOT; };
 		7388374C0B193581005C7A69 /* kiss_fft.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = kiss_fft.h; path = ../libspeex/kiss_fft.h; sourceTree = SOURCE_ROOT; };
 		7388374D0B193581005C7A69 /* kiss_fftr.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = kiss_fftr.c; path = ../libspeex/kiss_fftr.c; sourceTree = SOURCE_ROOT; };
@@ -260,8 +253,6 @@
 				738837460B193581005C7A69 /* _kiss_fft_guts.h */,
 				738837470B193581005C7A69 /* fftwrap.c */,
 				738837480B193581005C7A69 /* fftwrap.h */,
-				738837490B193581005C7A69 /* filterbank.c */,
-				7388374A0B193581005C7A69 /* filterbank.h */,
 				7388374B0B193581005C7A69 /* kiss_fft.c */,
 				7388374C0B193581005C7A69 /* kiss_fft.h */,
 				7388374D0B193581005C7A69 /* kiss_fftr.c */,
@@ -328,8 +319,6 @@
 				73814B4A0907FC9900C478FC /* speex.c */,
 				73814B4B0907FC9900C478FC /* stack_alloc.h */,
 				73814B4C0907FC9900C478FC /* stereo.c */,
-				73814B4D0907FC9900C478FC /* testdenoise.c */,
-				73814B4E0907FC9900C478FC /* testecho.c */,
 				73814B4F0907FC9900C478FC /* testenc_uwb.c */,
 				73814B500907FC9900C478FC /* testenc_wb.c */,
 				73814B510907FC9900C478FC /* testenc.c */,
@@ -389,7 +378,6 @@
 				73814B080907FBAE00C478FC /* speex.h in Headers */,
 				738837540B193581005C7A69 /* _kiss_fft_guts.h in Headers */,
 				738837560B193581005C7A69 /* fftwrap.h in Headers */,
-				738837580B193581005C7A69 /* filterbank.h in Headers */,
 				7388375A0B193581005C7A69 /* kiss_fft.h in Headers */,
 				7388375C0B193581005C7A69 /* kiss_fftr.h in Headers */,
 				7388375D0B193581005C7A69 /* lsp_bfin.h in Headers */,
@@ -494,7 +482,6 @@
 				738837810B19378C005C7A69 /* exc_5_64_table.c in Sources */,
 				738837820B19378E005C7A69 /* exc_8_128_table.c in Sources */,
 				738837830B193791005C7A69 /* fftwrap.c in Sources */,
-				738837840B193792005C7A69 /* filterbank.c in Sources */,
 				738837850B193793005C7A69 /* filters.c in Sources */,
 				738837860B193795005C7A69 /* gain_table.c in Sources */,
 				738837870B193796005C7A69 /* gain_table_lbr.c in Sources */,
@@ -559,7 +546,6 @@
 				73814BA40907FC9900C478FC /* vq.c in Sources */,
 				BFF73DD00A78AA170078A4A8 /* window.c in Sources */,
 				738837550B193581005C7A69 /* fftwrap.c in Sources */,
-				738837570B193581005C7A69 /* filterbank.c in Sources */,
 				738837590B193581005C7A69 /* kiss_fft.c in Sources */,
 				7388375B0B193581005C7A69 /* kiss_fftr.c in Sources */,
 				738837600B193581005C7A69 /* vorbis_psy.c in Sources */,
