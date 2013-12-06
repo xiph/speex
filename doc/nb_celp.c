@@ -5,7 +5,6 @@
 #include "quant_lsp.h"
 #include "cb_search.h"
 #include "filters.h"
-#include "../include/speex/speex_bits.h"
 #include "os_support.h"
 
 #ifndef NULL

@@ -17,7 +17,7 @@ else
   FFTSRC=
 endif
 
-INCLUDES = -I$(top_builddir)/include -I$(top_builddir) @OGG_CFLAGS@ @FFT_CFLAGS@
+INCLUDES = -I$(top_srcdir)/include -I$(top_builddir)/include/speex -I$(top_builddir) @OGG_CFLAGS@ @FFT_CFLAGS@
 
 lib_LTLIBRARIES = libspeex.la
 

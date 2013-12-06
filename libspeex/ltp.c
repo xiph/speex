@@ -38,7 +38,6 @@
 #include "ltp.h"
 #include "stack_alloc.h"
 #include "filters.h"
-#include "../include/speex/speex_bits.h"
 #include "math_approx.h"
 #include "os_support.h"
 

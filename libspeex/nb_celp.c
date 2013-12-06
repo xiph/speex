@@ -43,12 +43,10 @@
 #include "filters.h"
 #include "stack_alloc.h"
 #include "vq.h"
-#include "../include/speex/speex_bits.h"
 #include "vbr.h"
 #include "arch.h"
 #include "math_approx.h"
 #include "os_support.h"
-#include "../include/speex/speex_callbacks.h"
 
 #ifdef VORBIS_PSYCHO
 #include "vorbis_psy.h"

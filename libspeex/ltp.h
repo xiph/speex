@@ -35,7 +35,7 @@
 #ifndef LTP_H
 #define LTP_H
 
-#include "../include/speex/speex_bits.h"
+#include "speex/speex_bits.h"
 #include "arch.h"
 
 /** LTP parameters. */

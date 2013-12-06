@@ -36,7 +36,6 @@
 
 #include <stdio.h>
 #include <string.h>
-#include "../include/speex/speex_types.h"
 #include "wav_io.h"
 
 
