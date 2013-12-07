@@ -1,33 +1,30 @@
 dnl Process this file with autoconf to produce a configure script. -*-m4-*-
 
-AC_INIT(libspeex/speex.c)
+AC_INIT([speex],[1.2rc1],[speex-dev@xiph.org])
 
-AM_CONFIG_HEADER([config.h])
+AC_CONFIG_SRCDIR([libspeex/speex.c])
+AC_CONFIG_MACRO_DIR([m4])
+
+dnl enable silent rules on automake 1.11 and later
+m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
+
 
 SPEEX_MAJOR_VERSION=1
 SPEEX_MINOR_VERSION=1
 SPEEX_MICRO_VERSION=16
 SPEEX_EXTRA_VERSION=
-#SPEEX_VERSION=
-#SPEEX_VERSION=$SPEEX_MAJOR_VERSION.$SPEEX_MINOR_VERSION.$SPEEX_MICRO_VERSION$SPEEX_EXTRA_VERSION
-SPEEX_VERSION="1.2rc1"
 
 SPEEX_LT_CURRENT=6
 SPEEX_LT_REVISION=0
 SPEEX_LT_AGE=5
 
+
 AC_SUBST(SPEEX_LT_CURRENT)
 AC_SUBST(SPEEX_LT_REVISION)
 AC_SUBST(SPEEX_LT_AGE)
 
-# For automake.
-VERSION=$SPEEX_VERSION
-PACKAGE=speex
-
-AC_SUBST(SPEEX_VERSION)
-
-AM_INIT_AUTOMAKE($PACKAGE, $VERSION, no-define)
-AM_MAINTAINER_MODE
+AM_INIT_AUTOMAKE([foreign no-define])
+AM_MAINTAINER_MODE([enable])
 
 AC_CANONICAL_HOST
 AC_LIBTOOL_WIN32_DLL
@@ -126,7 +123,11 @@ AC_CHECK_FUNCS([getopt_long],,
 AC_LIBOBJ(getopt)
 AC_LIBOBJ(getopt1)])])
 
-AC_DEFINE_UNQUOTED(SPEEX_VERSION, "${SPEEX_VERSION}", [Complete version string])
+SPEEX_VERSION=$PACKAGE_VERSION
+
+AC_SUBST(SPEEX_VERSION)
+
+AC_DEFINE_UNQUOTED(SPEEX_VERSION, "${PACKAGE_VERSION}", [Complete version string])
 AC_DEFINE_UNQUOTED(SPEEX_MAJOR_VERSION, ${SPEEX_MAJOR_VERSION}, [Version major])
 AC_DEFINE_UNQUOTED(SPEEX_MINOR_VERSION, ${SPEEX_MINOR_VERSION}, [Version minor])
 AC_DEFINE_UNQUOTED(SPEEX_MICRO_VERSION, ${SPEEX_MICRO_VERSION}, [Version micro])
@@ -282,7 +283,8 @@ fi
 AC_SUBST(SIZE16)
 AC_SUBST(SIZE32)
 
-AC_OUTPUT([Makefile libspeex/Makefile src/Makefile doc/Makefile Speex.spec
+AC_CONFIG_FILES([
+           Makefile libspeex/Makefile src/Makefile doc/Makefile Speex.spec
            include/Makefile include/speex/Makefile speex.pc
            win32/Makefile win32/libspeex/Makefile win32/speexenc/Makefile
            win32/speexdec/Makefile symbian/Makefile 
@@ -303,7 +305,13 @@ AC_OUTPUT([Makefile libspeex/Makefile src/Makefile doc/Makefile Speex.spec
            win32/VS2008/speexenc/Makefile
            include/speex/speex_config_types.h ti/Makefile 
 	   ti/speex_C54_test/Makefile ti/speex_C55_test/Makefile
-	   ti/speex_C64_test/Makefile ])
+	   ti/speex_C64_test/Makefile
+])
+
+AC_CONFIG_HEADERS([config.h])
+
+AC_OUTPUT
+
 
 if test "x$src" = "x"; then 
 echo "**IMPORTANT**"

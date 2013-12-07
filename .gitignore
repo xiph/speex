@@ -9,6 +9,7 @@ Speex.kdevelop.pcs
 Speex.kdevses
 aclocal.m4
 autom4te.cache
+compile
 config.guess
 config.h.in
 config.sub
@@ -27,9 +28,7 @@ config.h
 config.log
 config.status
 include/speex/speex_config_types.h
-*.swp
-testdenoise
-testecho
+*.sw[lmnop]
 testenc
 testenc_uwb
 testenc_wb
