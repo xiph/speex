@@ -112,7 +112,7 @@ AC_CHECK_HEADERS(sys/soundcard.h sys/audioio.h)
 XIPH_PATH_OGG([src="src"], [src=""])
 AC_SUBST(src)
 
-AC_CHECK_LIB(m, sin)
+LT_LIB_M
 
 # Check for getopt_long; if not found, use included source.
 AC_CHECK_FUNCS([getopt_long],,
