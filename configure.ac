@@ -308,6 +308,12 @@ AC_SUBST([USIZE16])
 AC_SUBST([SIZE32])
 AC_SUBST([USIZE32])
 
+AS_IF([test "$ac_cv_header_stdint_h" = "yes"],    [INCLUDE_STDINT="#include <stdint.h>"],
+      [test "$ac_cv_header_inttypes_h" = "yes"],  [INCLUDE_STDINT="#include <inttypes.h>"],
+      [test "$ac_cv_header_sys_types_h" = "yes"], [INCLUDE_STDINT="#include <sys/types.h>"])
+
+AC_SUBST([INCLUDE_STDINT])
+
 
 AC_CONFIG_FILES([
            Makefile libspeex/Makefile src/Makefile doc/Makefile Speex.spec
