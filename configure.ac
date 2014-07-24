@@ -84,7 +84,7 @@ has_sse=yes
 has_sse=no
 ]
 )
-AC_MSG_RESULT($has_sse)  
+AC_MSG_RESULT($has_sse)
 
 SAVE_CFLAGS="$CFLAGS"
 CFLAGS="$CFLAGS -fvisibility=hidden"
@@ -317,7 +317,7 @@ AC_CONFIG_FILES([
            Makefile libspeex/Makefile src/Makefile doc/Makefile Speex.spec
            include/Makefile include/speex/Makefile speex.pc
            win32/Makefile win32/libspeex/Makefile win32/speexenc/Makefile
-           win32/speexdec/Makefile symbian/Makefile 
+           win32/speexdec/Makefile symbian/Makefile
            win32/VS2003/Makefile
            win32/VS2003/tests/Makefile
            win32/VS2003/libspeex/Makefile
@@ -333,7 +333,7 @@ AC_CONFIG_FILES([
            win32/VS2008/tests/Makefile
            win32/VS2008/libspeex/Makefile
            win32/VS2008/speexenc/Makefile
-           include/speex/speex_config_types.h ti/Makefile 
+           include/speex/speex_config_types.h ti/Makefile
 	   ti/speex_C54_test/Makefile ti/speex_C55_test/Makefile
 	   ti/speex_C64_test/Makefile
 ])
