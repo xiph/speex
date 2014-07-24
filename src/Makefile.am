@@ -16,6 +16,8 @@ noinst_HEADERS = wav_io.h
 
 bin_PROGRAMS = speexenc speexdec
 
+CFLAGS += $(OGG_CFLAGS)
+
 speexenc_SOURCES = speexenc.c wav_io.c skeleton.c
 speexenc_LDADD = $(top_builddir)/libspeex/libspeex.la \
 	$(OGG_LIBS)  @FFT_LIBS@	@SPEEXDSP_LIBS@
