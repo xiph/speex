@@ -89,24 +89,40 @@ static int read_samples(FILE *fin,int frame_size, int bits, int channels, int ls
    int i;
    short *s;
    int nb_read;
+   size_t to_read;
 
    if (size && *size<=0)
    {
       return 0;
    }
+
+   to_read = bits/8*channels*frame_size;
+
    /*Read input audio*/
    if (size)
-      *size -= bits/8*channels*frame_size;
+   {
+      if (*size >= to_read)
+      {
+         *size -= to_read;
+      }
+      else
+      {
+         to_read = *size;
+         *size = 0;
+      }
+   }
+
    if (buff)
    {
       for (i=0;i<12;i++)
          in[i]=buff[i];
-      nb_read = fread(in+12,1,bits/8*channels*frame_size-12, fin) + 12;
+      nb_read = fread(in+12,1,to_read-12,fin) + 12;
       if (size)
          *size += 12;
    } else {
-      nb_read = fread(in,1,bits/8*channels* frame_size, fin);
+      nb_read = fread(in,1,to_read,fin);
    }
+
    nb_read /= bits/8*channels;
 
    /*fprintf (stderr, "%d\n", nb_read);*/
