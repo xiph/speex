@@ -108,7 +108,6 @@ CFLAGS="$SAVE_CFLAGS"
 AC_MSG_RESULT($has_visibility)
 
 AC_CHECK_HEADERS(sys/soundcard.h sys/audioio.h)
-PKG_HAVE_WITH_MODULES([OGG], [ogg])
 
 LT_LIB_M
 
@@ -166,6 +165,15 @@ AC_ARG_ENABLE(float-api, [  --disable-float-api     Disable the floating-point A
 [if test "$enableval" = no; then
   AC_DEFINE([DISABLE_FLOAT_API], , [Disable all parts of the API that are using floats])
 fi])
+
+AC_ARG_ENABLE(binaries, [  --disable-binaries   Do not build the encoder and decoder programs, only the library])
+if test "$enableval" != no; then
+  PKG_CHECK_MODULES([OGG], [ogg],
+    AM_CONDITIONAL([BUILD_BINARIES], true),
+    AM_CONDITIONAL([BUILD_BINARIES], false))
+else
+  AM_CONDITIONAL([BUILD_BINARIES], false)
+fi
 
 AC_ARG_ENABLE(vbr, [  --disable-vbr           Disable VBR and VAD from the codec],
 [if test "$enableval" = no; then

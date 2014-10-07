@@ -16,7 +16,7 @@ EXTRA_DIST = Speex.spec Speex.spec.in Speex.kdevelop speex.m4 speex.pc.in README
 #Fools KDevelop into including all files
 SUBDIRS = libspeex include doc win32 symbian ti
 
-if HAVE_OGG
+if BUILD_BINARIES
 SUBDIRS += src
 endif
 

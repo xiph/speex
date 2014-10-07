@@ -42,6 +42,7 @@ noinst_HEADERS = 	arch.h 	bfin.h cb_search_arm4.h 	cb_search_bfin.h 	cb_search_s
 libspeex_la_LDFLAGS = -no-undefined -version-info @SPEEX_LT_CURRENT@:@SPEEX_LT_REVISION@:@SPEEX_LT_AGE@
 libspeex_la_LIBADD = $(LIBM)
 
+if BUILD_BINARIES
 noinst_PROGRAMS = testenc testenc_wb testenc_uwb
 testenc_SOURCES = testenc.c
 testenc_LDADD = libspeex.la $(LIBM)
@@ -49,3 +50,4 @@ testenc_wb_SOURCES = testenc_wb.c
 testenc_wb_LDADD = libspeex.la $(LIBM)
 testenc_uwb_SOURCES = testenc_uwb.c
 testenc_uwb_LDADD = libspeex.la $(LIBM)
+endif
