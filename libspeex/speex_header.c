@@ -159,7 +159,7 @@ EXPORT SpeexHeader *speex_packet_to_header(char *packet, int size)
    for (i=0;i<8;i++)
       if (packet[i]!=h[i])
       {
-         speex_notify("This doesn't look like a Speex file");
+         /* This doesn't look like a Speex file */
          return NULL;
       }
 
