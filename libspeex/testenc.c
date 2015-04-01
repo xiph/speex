@@ -114,7 +114,7 @@ int main(int argc, char **argv)
    rewind(fin);
    rewind(fout);
 
-   while ( FRAME_SIZE == fread(in_short, sizeof(short), FRAME_SIZE, fin) 
+   while ( FRAME_SIZE == fread(in_short, sizeof(short), FRAME_SIZE, fin)
            &&
            FRAME_SIZE ==  fread(out_short, sizeof(short), FRAME_SIZE,fout) )
    {

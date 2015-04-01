@@ -107,7 +107,7 @@ int main(int argc, char **argv)
    rewind(fin);
    rewind(fout);
 
-   while ( FRAME_SIZE == fread(in_short, sizeof(short), FRAME_SIZE, fin) 
+   while ( FRAME_SIZE == fread(in_short, sizeof(short), FRAME_SIZE, fin)
            &&
            FRAME_SIZE ==  fread(out_short, sizeof(short), FRAME_SIZE,fout) )
    {
@@ -131,6 +131,6 @@ int main(int argc, char **argv)
 #ifdef FIXED_DEBUG
    printf ("Total: %f MIPS\n", (float)(1e-6*50*spx_mips/snr_frames));
 #endif
-   
+
    return 1;
 }

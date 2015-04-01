@@ -43,7 +43,7 @@ void speex_jitter_get(SpeexJitter *jitter, spx_int16_t *out, int *current_timest
    JitterBufferPacket packet;
    packet.data = data;
    packet.len = 2048;
-   
+
    if (jitter->valid_bits)
    {
       /* Try decoding last received packet */
@@ -58,7 +58,7 @@ void speex_jitter_get(SpeexJitter *jitter, spx_int16_t *out, int *current_timest
    }
 
    ret = jitter_buffer_get(jitter->packets, &packet, jitter->frame_size, NULL);
-   
+
    if (ret != JITTER_BUFFER_OK)
    {
       /* No packet found */

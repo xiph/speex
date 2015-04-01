@@ -86,7 +86,7 @@ int nb_decode(struct speex_decode_state *st, SpeexBits *bits, float *out)
 		mode = speex_bits_unpack_unsigned(bits, 4);
 		if (mode == 15)
 			return -1;
-      
+
 	} while (mode > 8);
 
 	if (mode != 3) {
@@ -108,7 +108,7 @@ int nb_decode(struct speex_decode_state *st, SpeexBits *bits, float *out)
 		for (i=0; i<NB_ORDER; i++)
 			st->old_qlsp[i] = qlsp[i];
 	}
-   
+
 	/* Get global excitation gain */
 	qe = speex_bits_unpack_unsigned(bits, 5);
 	ol_gain = SIG_SCALING*exp(qe/3.5);
@@ -130,14 +130,14 @@ int nb_decode(struct speex_decode_state *st, SpeexBits *bits, float *out)
 				   NB_SUBFRAME_SIZE, bits, 0);
 
 		sanitize_values32(exc32, -32000, 32000, NB_SUBFRAME_SIZE);
-         
+
 		/* Unquantize the innovation */
 		SPEEX_MEMSET(innov, 0, NB_SUBFRAME_SIZE);
 
 		/* Decode sub-frame gain correction */
 		q_energy = speex_bits_unpack_unsigned(bits, 1);
 		ener = exc_gain_quant_scal1[q_energy] * ol_gain;
-                  
+
 		/* Fixed codebook contribution */
 		split_cb_shape_sign_unquant(innov, bits);
 
@@ -148,9 +148,9 @@ int nb_decode(struct speex_decode_state *st, SpeexBits *bits, float *out)
 			exc[i] = exc32[i] + innov[i];
 		}
 	}
-   
+
 	SPEEX_COPY(out, &st->exc[-NB_SUBFRAME_SIZE], NB_FRAME_SIZE);
-   
+
 	/* Loop on subframes */
 	for (sub=0; sub<4; sub++) {
 		const int offset = NB_SUBFRAME_SIZE*sub;
@@ -173,7 +173,7 @@ int nb_decode(struct speex_decode_state *st, SpeexBits *bits, float *out)
 		for (i=0; i<NB_ORDER; i++)
 			st->interp_qlpc[i] = ak[i];
 	}
-   
+
 	/* Store the LSPs for interpolation in the next frame */
 	for (i=0; i<NB_ORDER; i++)
 		st->old_qlsp[i] = qlsp[i];

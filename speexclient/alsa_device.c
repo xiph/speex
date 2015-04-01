@@ -2,7 +2,7 @@
    Copyright (C) 2004-2006 Jean-Marc Valin
    Copyright (C) 2006 Commonwealth Scientific and Industrial Research
                       Organisation (CSIRO) Australia
-   
+
    Redistribution and use in source and binary forms, with or without
    modification, are permitted provided that the following conditions are
    met:
@@ -66,7 +66,7 @@ AlsaDevice *alsa_device_open(char *device_name, unsigned int rate, int channels,
    dev->channels = channels;
    dev->period = period;
    err = snd_output_stdio_attach(&jcd_out, stdout, 0);
-   
+
    if ((err = snd_pcm_open (&dev->capture_handle, dev->device_name, SND_PCM_STREAM_CAPTURE, 0)) < 0) {
       fprintf (stderr, "cannot open audio device %s (%s)\n",
                dev->device_name,
@@ -110,7 +110,7 @@ AlsaDevice *alsa_device_open(char *device_name, unsigned int rate, int channels,
                snd_strerror (err));
       assert(0);
    }
-   
+
    period_size = period;
    dir = 0;
    if ((err = snd_pcm_hw_params_set_period_size_near (dev->capture_handle, hw_params, &period_size, &dir)) < 0) {
@@ -118,13 +118,13 @@ AlsaDevice *alsa_device_open(char *device_name, unsigned int rate, int channels,
                snd_strerror (err));
       assert(0);
    }
-   
+
    if ((err = snd_pcm_hw_params_set_periods (dev->capture_handle, hw_params, 2, 0)) < 0) {
       fprintf (stderr, "cannot set number of periods (%s)\n",
                snd_strerror (err));
       assert(0);
    }
-   
+
    buffer_size = period_size * 2;
    dir=0;
    if ((err = snd_pcm_hw_params_set_buffer_size_near (dev->capture_handle, hw_params, &buffer_size)) < 0) {
@@ -132,7 +132,7 @@ AlsaDevice *alsa_device_open(char *device_name, unsigned int rate, int channels,
                snd_strerror (err));
       assert(0);
    }
-   
+
    if ((err = snd_pcm_hw_params (dev->capture_handle, hw_params)) < 0) {
       fprintf (stderr, "cannot set capture parameters (%s)\n",
                snd_strerror (err));
@@ -160,16 +160,16 @@ AlsaDevice *alsa_device_open(char *device_name, unsigned int rate, int channels,
       fprintf (stderr, "cannot set software parameters (%s)\n",
                snd_strerror (err));
       assert(0);
-   }   
-   
-   
+   }
+
+
    if ((err = snd_pcm_open (&dev->playback_handle, dev->device_name, SND_PCM_STREAM_PLAYBACK, 0)) < 0) {
       fprintf (stderr, "cannot open audio device %s (%s)\n",
                dev->device_name,
                snd_strerror (err));
       assert(0);
    }
-   
+
    if ((err = snd_pcm_hw_params_malloc (&hw_params)) < 0) {
       fprintf (stderr, "cannot allocate hardware parameter structure (%s)\n",
                snd_strerror (err));
@@ -206,7 +206,7 @@ AlsaDevice *alsa_device_open(char *device_name, unsigned int rate, int channels,
                snd_strerror (err));
       assert(0);
    }
-   
+
    period_size = period;
    dir = 0;
    if ((err = snd_pcm_hw_params_set_period_size_near (dev->playback_handle, hw_params, &period_size, &dir)) < 0) {
@@ -237,7 +237,7 @@ AlsaDevice *alsa_device_open(char *device_name, unsigned int rate, int channels,
    /*snd_pcm_dump_setup(dev->playback_handle, jcd_out);*/
    snd_pcm_hw_params_free (hw_params);
 
-   
+
    if ((err = snd_pcm_sw_params_malloc (&sw_params)) < 0) {
       fprintf (stderr, "cannot allocate software parameters structure (%s)\n",
                snd_strerror (err));
@@ -263,8 +263,8 @@ AlsaDevice *alsa_device_open(char *device_name, unsigned int rate, int channels,
                snd_strerror (err));
       assert(0);
    }
-  
-   
+
+
    snd_pcm_link(dev->capture_handle, dev->playback_handle);
    if ((err = snd_pcm_prepare (dev->capture_handle)) < 0) {
       fprintf (stderr, "cannot prepare audio interface for use (%s)\n",
@@ -276,7 +276,7 @@ AlsaDevice *alsa_device_open(char *device_name, unsigned int rate, int channels,
                snd_strerror (err));
       assert(0);
    }
-   
+
    dev->readN = snd_pcm_poll_descriptors_count(dev->capture_handle);
    dev->writeN = snd_pcm_poll_descriptors_count(dev->playback_handle);
 
@@ -288,7 +288,7 @@ AlsaDevice *alsa_device_open(char *device_name, unsigned int rate, int channels,
                snd_strerror (err));
       assert(0);
    }
-   
+
    dev->write_fd = malloc(dev->writeN*sizeof(*dev->read_fd));
    if (snd_pcm_poll_descriptors(dev->playback_handle, dev->write_fd, dev->writeN) != dev->writeN)
    {
