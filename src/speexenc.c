@@ -574,7 +574,7 @@ int main(int argc, char **argv)
 		  perror("short file");
 		  exit(1);
 	  }
-      if (strncmp(first_bytes,"RIFF",4)==0 && strncmp(first_bytes,"RIFF",4)==0)
+      if (strncmp(first_bytes,"RIFF",4)==0 || strncmp(first_bytes,"riff",4)==0)
       {
          if (read_wav_header(fin, &rate, &chan, &fmt, &size)==-1)
             exit(1);
