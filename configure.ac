@@ -304,6 +304,8 @@ case $SIZEOF32 in
     $ac_cv_sizeof_long) USIZE32="unsigned long";;
 esac
 
+XIPH_ADD_CFLAGS([-Wall])
+
 AS_IF([test -z "$SIZE16"],[AC_MSG_ERROR([No 16 bit type found on this platform!])])
 AS_IF([test -z "$SIZE32"],[AC_MSG_ERROR([No 32 bit type found on this platform!])])
 AS_IF([test -z "$USIZE16"],[AC_MSG_ERROR([No unsigned 16 bit type found on this platform!])])
