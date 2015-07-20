@@ -188,11 +188,8 @@ int read_wav_header(FILE *file, int *rate, int *channels, int *format, spx_int32
 
 void write_wav_header(FILE *file, int rate, int channels, int format, int size)
 {
-   char ch[5];
    spx_int32_t itmp;
    spx_int16_t stmp;
-
-   ch[4]=0;
 
    fprintf (file, "RIFF");
 

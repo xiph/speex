@@ -228,7 +228,7 @@ int lpc_to_lsp (spx_coef_t *a,int lpcrdr,spx_lsp_t *freq,int nb,spx_word16_t del
 {
     spx_word16_t temp_xr,xl,xr,xm=0;
     spx_word32_t psuml,psumr,psumm,temp_psumr/*,temp_qsumr*/;
-    int i,j,m,flag,k;
+    int i,j,m,k;
     VARDECL(spx_word32_t *Q);                 	/* ptrs for memory allocation 		*/
     VARDECL(spx_word32_t *P);
     VARDECL(spx_word16_t *Q16);         /* ptrs for memory allocation 		*/
@@ -240,8 +240,6 @@ int lpc_to_lsp (spx_coef_t *a,int lpcrdr,spx_lsp_t *freq,int nb,spx_word16_t del
     spx_word16_t *pt;                	/* ptr used for cheb_poly_eval()
 				whether P' or Q' 			*/
     int roots=0;              	/* DR 8/2/94: number of roots found 	*/
-    flag = 1;                	/*  program is searching for a root when,
-				1 else has found one 			*/
     m = lpcrdr/2;            	/* order of P'(z) & Q'(z) polynomials 	*/
 
     /* Allocate memory space for polynomials */
@@ -324,7 +322,7 @@ int lpc_to_lsp (spx_coef_t *a,int lpcrdr,spx_lsp_t *freq,int nb,spx_word16_t del
 	    pt = P16;
 
 	psuml = cheb_poly_eva(pt,xl,m,stack);	/* evals poly. at xl 	*/
-	flag = 1;
+
 	while(xr >= -FREQ_SCALE){
            spx_word16_t dd;
            /* Modified by JMV to provide smaller steps around x=+-1 */
@@ -377,7 +375,7 @@ int lpc_to_lsp (spx_coef_t *a,int lpcrdr,spx_lsp_t *freq,int nb,spx_word16_t del
 	       /* once zero is found, reset initial interval to xr 	*/
 	       freq[j] = X2ANGLE(xm);
 	       xl = xm;
-	       break;       		/* reset flag for next search 	*/
+	       break;
 	    }
 	    else{
 		psuml=temp_psumr;
