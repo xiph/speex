@@ -89,7 +89,7 @@
 #define readint(buf, base) (((buf[base+3]<<24)&0xff000000)| \
                            ((buf[base+2]<<16)&0xff0000)| \
                            ((buf[base+1]<<8)&0xff00)| \
-  	           	    (buf[base]&0xff))
+                            (buf[base]&0xff))
 
 static void print_comments(char *comments, int length)
 {
@@ -615,10 +615,10 @@ int main(int argc, char **argv)
             ogg_stream_init(&os, ogg_page_serialno(&og));
             stream_init = 1;
          }
-	 if (ogg_page_serialno(&og) != os.serialno) {
-	    /* so all streams are read. */
-	    ogg_stream_reset_serialno(&os, ogg_page_serialno(&og));
-	 }
+         if (ogg_page_serialno(&og) != os.serialno) {
+            /* so all streams are read. */
+            ogg_stream_reset_serialno(&os, ogg_page_serialno(&og));
+         }
          /*Add page to the bitstream*/
          ogg_stream_pagein(&os, &og);
          page_granule = ogg_page_granulepos(&og);
@@ -641,11 +641,11 @@ int main(int argc, char **argv)
          packet_no=0;
          while (!eos && ogg_stream_packetout(&os, &op) == 1)
          {
-	    if (op.bytes>=5 && !memcmp(op.packet, "Speex", 5)) {
-	       speex_serialno = os.serialno;
-	    }
-	    if (speex_serialno == -1 || os.serialno != speex_serialno)
-	       break;
+            if (op.bytes>=5 && !memcmp(op.packet, "Speex", 5)) {
+               speex_serialno = os.serialno;
+            }
+            if (speex_serialno == -1 || os.serialno != speex_serialno)
+               break;
             /*If first packet, process as Speex header*/
             if (packet_count==0)
             {
@@ -711,14 +711,14 @@ int main(int argc, char **argv)
                      fprintf (stderr, "Bitrate is use: %d bps     ", tmp);
                   }
                   /*Convert to short and save to output file*/
-		  if (strlen(outFile)!=0)
+                  if (strlen(outFile)!=0)
                   {
                      for (i=0;i<frame_size*channels;i++)
                         out[i]=le_short(output[i]);
-		  } else {
+                  } else {
                      for (i=0;i<frame_size*channels;i++)
                         out[i]=output[i];
-		  }
+                  }
                   {
                      int frame_offset = 0;
                      int new_frame_size = frame_size;
