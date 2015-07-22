@@ -104,7 +104,7 @@ fishead_packet fishead_from_ogg(ogg_packet *op) {
     fishead_packet fp;
 
     if (memcmp(op->packet, FISHEAD_IDENTIFIER, 8))
-	; /* invalid packet what do we do? */
+        ; /* invalid packet what do we do? */
 
     fp.version_major = *((ogg_uint16_t*)(op->packet+8)); /* version major */
     fp.version_minor = *((ogg_uint16_t*)(op->packet+10)); /* version minor */
@@ -123,7 +123,7 @@ fisbone_packet fisbone_from_ogg(ogg_packet *op) {
     fisbone_packet fp;
 
     if (memcmp(op->packet, FISBONE_IDENTIFIER, 8))
-	; /* invalid value, what do we do? */
+        ; /* invalid value, what do we do? */
     fp.serial_no = *((ogg_uint32_t*)(op->packet+12)); /* serialno of the stream represented by this fisbone packet */
     fp.nr_header_packet = *((ogg_uint32_t*)(op->packet+16)); /* number of header packets */
     fp.granule_rate_n = *((ogg_int64_t*)(op->packet+20)); /* granulrate numerator */
