@@ -340,8 +340,8 @@ int main(int argc, char **argv)
    int lsb=1;
    ogg_stream_state os;
    ogg_stream_state so; /* ogg stream for skeleton bitstream */
-   ogg_page 		 og;
-   ogg_packet 		 op;
+   ogg_page og;
+   ogg_packet op;
    int bytes_written=0, ret, result;
    int id=-1;
    SpeexHeader header;
@@ -464,7 +464,7 @@ int main(int argc, char **argv)
             exit(0);
          } else if (strcmp(long_options[option_index].name,"print-rate")==0)
          {
-			 output_rate=1;
+            output_rate=1;
          } else if (strcmp(long_options[option_index].name,"le")==0)
          {
             lsb=1;
@@ -485,12 +485,12 @@ int main(int argc, char **argv)
             rate=atoi (optarg);
          } else if (strcmp(long_options[option_index].name,"comment")==0)
          {
-	   if (!strchr(optarg, '='))
-	   {
-	     fprintf (stderr, "Invalid comment: %s\n", optarg);
-	     fprintf (stderr, "Comments must be of the form name=value\n");
-	     exit(1);
-	   }
+            if (!strchr(optarg, '='))
+            {
+               fprintf (stderr, "Invalid comment: %s\n", optarg);
+               fprintf (stderr, "Comments must be of the form name=value\n");
+               exit(1);
+            }
            comment_add(&comments, &comments_length, NULL, optarg);
          } else if (strcmp(long_options[option_index].name,"author")==0)
          {
@@ -570,10 +570,10 @@ int main(int argc, char **argv)
 
    {
       if (fread(first_bytes, 1, 12, fin) != 12)
-	  {
-		  perror("short file");
-		  exit(1);
-	  }
+      {
+         perror("short file");
+         exit(1);
+      }
       if (strncmp(first_bytes,"RIFF",4)==0 || strncmp(first_bytes,"riff",4)==0)
       {
          if (read_wav_header(fin, &rate, &chan, &fmt, &size)==-1)
@@ -756,10 +756,10 @@ int main(int argc, char **argv)
    if (with_skeleton) {
       add_fishead_packet(&so);
       if ((ret = flush_ogg_stream_to_file(&so, fout))) {
-	 fprintf (stderr,"Error: failed skeleton (fishead) header to output stream\n");
+         fprintf (stderr,"Error: failed skeleton (fishead) header to output stream\n");
          exit(1);
       } else
-	 bytes_written += ret;
+         bytes_written += ret;
    }
 
    /*Write header*/
@@ -800,10 +800,10 @@ int main(int argc, char **argv)
    if (with_skeleton) {
       add_fisbone_packet(&so, os.serialno, &header);
       if ((ret = flush_ogg_stream_to_file(&so, fout))) {
-	 fprintf (stderr,"Error: failed writing skeleton (fisbone )header to output stream\n");
+         fprintf (stderr,"Error: failed writing skeleton (fisbone )header to output stream\n");
          exit(1);
       } else
-	 bytes_written += ret;
+         bytes_written += ret;
    }
 
    /* writing the rest of the speex header packets */
@@ -829,7 +829,7 @@ int main(int argc, char **argv)
          fprintf (stderr,"Error: failed writing skeleton header to output stream\n");
          exit(1);
       } else
-	 bytes_written += ret;
+         bytes_written += ret;
    }
 
 
@@ -873,8 +873,8 @@ int main(int argc, char **argv)
                fprintf (stderr, "Bitrate is use: %d bps  (average %d bps)   ", tmp, (int)(cumul_bits/enc_frames));
             else
                fprintf (stderr, "Bitrate is use: %d bps     ", tmp);
-			if (output_rate)
-				printf ("%d\n", tmp);
+            if (output_rate)
+               printf ("%d\n", tmp);
          }
 
       }
@@ -994,7 +994,7 @@ The comment header is decoded as follows:
 #define readint(buf, base) (((buf[base+3]<<24)&0xff000000)| \
                            ((buf[base+2]<<16)&0xff0000)| \
                            ((buf[base+1]<<8)&0xff00)| \
-  	           	    (buf[base]&0xff))
+                            (buf[base]&0xff))
 #define writeint(buf, base, val) do{ buf[base+3]=((val)>>24)&0xff; \
                                      buf[base+2]=((val)>>16)&0xff; \
                                      buf[base+1]=((val)>>8)&0xff; \
