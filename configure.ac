@@ -194,9 +194,12 @@ AC_ARG_ENABLE(blackfin-asm, [  --enable-blackfin-asm   Make use of Blackfin asse
 [if test "$enableval" = yes; then
   AC_DEFINE([BFIN_ASM], , [Make use of Blackfin assembly optimizations])
 fi])
+WINMM_LIBS=""
 case $host_os in
   uclinux) LDFLAGS="-Wl,-elf2flt=-s100000 $LDFLAGS";;
+  *mingw*) WINMM_LIBS="-lwinmm";;
 esac
+AC_SUBST(WINMM_LIBS)
 
 AC_ARG_ENABLE(fixed-point-debug, [  --enable-fixed-point-debug  Debug fixed-point implementation],
 [if test "$enableval" = yes; then
