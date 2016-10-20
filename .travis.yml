@@ -1,0 +1,13 @@
+language: c
+
+env:
+  - CONFIG=""
+  - CONFIG="--enable-fixed-point"
+  - CONFIG="--enable-fixed-point --disable-float-api"
+  - CONFIG="--enable-vorbis-psy"
+  - CONFIG="--disable-binaries"
+
+script:
+  - ./autogen.sh
+  - ./configure $CONFIG
+  - make distcheck
