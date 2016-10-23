@@ -4,15 +4,28 @@ SPEEX_PATH=$(realpath $(LOCAL_PATH)/../..)
 SPX_ANDROID_PATH=$(realpath $(LOCAL_PATH)/..)
 $(info SPEEX_PATH = $(SPEEX_PATH))
 
+ifeq ($(TARGET_ARCH_ABI), armeabi-v7a)
+    $(info Build speex for arm platform...)
+    SPX_INCLUDE_PATH := $(SPX_ANDROID_PATH)/inc/arm
+else
+    ifeq ($(TARGET_ARCH_ABI), x86)
+        $(info Build speex for x86 platform...)
+        SPX_INCLUDE_PATH := $(SPX_ANDROID_PATH)/inc/x86
+    else
+        $(error Unsupport platform!)
+    endif
+endif
+
 ##########################
 #    libspeex      static library       #
- ##########################
+##########################
 
 include $(CLEAR_VARS)
  
 LOCAL_MODULE := libspeex
+
 LOCAL_CFLAGS := -DHAVE_CONFIG_H
-LOCAL_C_INCLUDES := $(SPX_ANDROID_PATH)
+LOCAL_C_INCLUDES := $(SPX_INCLUDE_PATH)
 LOCAL_C_INCLUDES += $(SPEEX_PATH)/include 
 
 LOCAL_ARM_MODE := arm
@@ -60,7 +73,7 @@ include $(CLEAR_VARS)
 LOCAL_MODULE := libspeex-jni
 
 LOCAL_CFLAGS += -Wall -fvisibility=hidden -DHAVE_CONFIG_H
-LOCAL_C_INCLUDES := $(SPX_ANDROID_PATH)
+LOCAL_C_INCLUDES := $(SPX_INCLUDE_PATH)
 LOCAL_C_INCLUDES += $(SPEEX_PATH)/include 
 
 LOCAL_SRC_FILES := speex-jni.cpp
