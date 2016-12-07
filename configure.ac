@@ -1,6 +1,6 @@
 dnl Process this file with autoconf to produce a configure script. -*-m4-*-
 
-AC_INIT([speex],[1.2rc2],[speex-dev@xiph.org])
+AC_INIT([speex],[1.2.0],[speex-dev@xiph.org])
 
 AC_CONFIG_SRCDIR([libspeex/speex.c])
 AC_CONFIG_MACRO_DIR([m4])
@@ -15,7 +15,7 @@ SPEEX_MICRO_VERSION=16
 SPEEX_EXTRA_VERSION=
 
 SPEEX_LT_CURRENT=6
-SPEEX_LT_REVISION=0
+SPEEX_LT_REVISION=1
 SPEEX_LT_AGE=5
 
 
