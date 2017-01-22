@@ -1,5 +1,13 @@
 language: c
 
+os:
+  - linux
+  - osx
+
+compiler:
+  - gcc
+  - clang
+
 env:
   - CONFIG=""
   - CONFIG="--enable-fixed-point"
