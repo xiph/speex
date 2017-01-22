@@ -7,6 +7,14 @@ env:
   - CONFIG="--enable-vorbis-psy"
   - CONFIG="--disable-binaries"
 
+os:
+  - linux
+  - osx
+
+compiler:
+  - gcc
+  - clang
+
 script:
   - ./autogen.sh
   - ./configure $CONFIG
