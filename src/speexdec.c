@@ -420,8 +420,16 @@ static void *process_header(ogg_packet *op, spx_int32_t enh_enabled, spx_int32_t
    return st;
 }
 
+#ifdef ENABLE_PROFILER
+#include "profiler/prof.h"
+#endif
 int main(int argc, char **argv)
 {
+#ifdef ENABLE_PROFILER
+   /* in the start-up code */
+   monstartup("speexdec");
+#endif
+
    int c;
    int option_index = 0;
    char *inFile, *outFile;
@@ -802,6 +810,11 @@ int main(int argc, char **argv)
       fclose(fin);
    if (fout != NULL)
       fclose(fout);
+
+#ifdef ENABLE_PROFILER
+/* in the onPause or shutdown code */
+moncleanup();
+#endif
 
    return 0;
 }

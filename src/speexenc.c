@@ -271,9 +271,17 @@ void usage()
    printf ("Please report bugs to the mailing list `speex-dev@xiph.org'.\n");
 }
 
+#ifdef ENABLE_PROFILER
+#include "profiler/prof.h"
+#endif
 
 int main(int argc, char **argv)
 {
+#ifdef ENABLE_PROFILER
+/* in the start-up code */
+monstartup("speexenc");
+#endif
+
    int nb_samples, total_samples=0, nb_encoded;
    int c;
    int option_index = 0;
@@ -968,6 +976,12 @@ int main(int argc, char **argv)
       fclose(fin);
    if (close_out)
       fclose(fout);
+
+#ifdef ENABLE_PROFILER
+/* in the onPause or shutdown code */
+moncleanup();
+#endif
+
    return 0;
 }
 
