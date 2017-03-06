@@ -39,10 +39,17 @@
 /*The frame size in hardcoded for this sample code but it doesn't have to be.*/
 #define FRAME_SIZE 160
 
+#ifndef DISABLE_FLOAT_API
+    typedef float output_type;
+    #define speex_decode_func(a, b, c) speex_decode(a, b, c)
+#else
+    typedef spx_int16_t output_type;
+    #define speex_decode_func(a, b, c) speex_decode_int(a, b, c)
+#endif
+
 int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size)
 {
-   /*Speex handle samples as float, so we need an array of floats.*/
-   float output[FRAME_SIZE];
+   output_type output[FRAME_SIZE];
    void *decoder_state;
    SpeexBits bitstream;
    int tmp;
@@ -61,12 +68,10 @@ int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size)
    speex_bits_read_from(&bitstream, (char *)data, size);
 
    /*Decode the data, 1 packet at a time.*/
-   while (!speex_decode(decoder_state, &bitstream, output));
-       /*noop*/
+   while (!speex_decode_func(decoder_state, &bitstream, output))
+       ; /*noop*/
 
-   /*Destroy the decoder state*/
    speex_decoder_destroy(decoder_state);
-   /*Destroy the bit-stream struct*/
    speex_bits_destroy(&bitstream);
    return 0;
 }
