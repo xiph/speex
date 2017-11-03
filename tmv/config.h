@@ -4,7 +4,7 @@
 #define USE_COMPACT_KISS_FFT
 //#define USE_KISS_FFT
 
-#ifdef WIN32
+#ifdef _WIN32
 
 //#define		FIXED_POINT
 
