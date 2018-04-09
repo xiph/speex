@@ -61,6 +61,7 @@ speex_std_vbr_quality_request_handler
 speex_init_header
 speex_header_to_packet
 speex_packet_to_header
+speex_header_free
 
 ;
 ;	speex_stereo.h
