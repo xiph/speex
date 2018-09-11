@@ -75,8 +75,11 @@ int read_wav_header(FILE *file, int *rate, int *channels, int *format, spx_int32
       itmp = le_int(itmp);
       /*fprintf (stderr, "skip=%d\n", itmp);*/
       /*strange way of seeking, but it works even for pipes*/
-      for (i=0;i<itmp;i++)
-         fgetc(file);
+      for (i=0;i<itmp;i++) {
+        if (fgetc(file) == EOF) {
+          break;
+        }
+      }
       /*fseek(file, itmp, SEEK_CUR);*/
       fread(ch, 1, 4, file);
       if (feof(file))
