@@ -144,7 +144,6 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t *fuzz_data, size_t fuzz_size
    int print_bitrate=0;
    int close_in=0;
    int eos=0;
-   int audio_size=0;
    SpeexStereoState stereo = SPEEX_STEREO_STATE_INIT;
    int channels=-1;
    int rate=0;
@@ -268,11 +267,6 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t *fuzz_data, size_t fuzz_size
                            new_frame_size = 0;
                         if (new_frame_size>frame_size)
                            new_frame_size = frame_size;
-                        /*printf ("chopping end: %d %d %d\n", new_frame_size, packet_length, packet_no);*/
-                     }
-                     if (new_frame_size>0)
-                     {
-                        audio_size+=sizeof(short)*new_frame_size*channels;
                      }
                   }
                }
