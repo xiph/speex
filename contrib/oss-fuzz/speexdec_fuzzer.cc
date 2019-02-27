@@ -49,6 +49,16 @@
 
 #define MAX_FRAME_SIZE 2000
 
+#ifndef DISABLE_FLOAT_API
+    typedef float output_type;
+    #define speex_decode_func(a, b, c) speex_decode(a, b, c)
+    #define speex_decode_stereo_func(a, b, c) speex_decode_stereo(a, b, c)
+#else
+    typedef spx_int16_t output_type;
+    #define speex_decode_func(a, b, c) speex_decode_int(a, b, c)
+    #define speex_decode_stereo_func(a, b, c) speex_decode_stereo_int(a, b, c)
+#endif
+
 static void *process_header(ogg_packet *op, spx_int32_t enh_enabled, spx_int32_t *frame_size, int *granule_frame_size, spx_int32_t *rate, int *nframes, int *channels, SpeexStereoState *stereo, int *extra_headers)
 {
    void *st;
@@ -127,7 +137,7 @@ static void *process_header(ogg_packet *op, spx_int32_t enh_enabled, spx_int32_t
 extern "C" int LLVMFuzzerTestOneInput(const uint8_t *fuzz_data, size_t fuzz_size)
 {
    int c;
-   short output[MAX_FRAME_SIZE];
+   output_type output[MAX_FRAME_SIZE];
    int frame_size=0, granule_frame_size=0;
    void *st=NULL;
    SpeexBits bits;
@@ -236,7 +246,7 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t *fuzz_data, size_t fuzz_size
                {
                   int ret;
                   /*Decode frame*/
-                  ret = speex_decode_int(st, &bits, output);
+                  ret = speex_decode_func(st, &bits, output);
 
                   if (ret==-1)
                      break;
@@ -249,7 +259,7 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t *fuzz_data, size_t fuzz_size
                      break;
                   }
                   if (channels==2)
-                     speex_decode_stereo_int(output, frame_size, &stereo);
+                     speex_decode_stereo_func(output, frame_size, &stereo);
 
                   {
                      int frame_offset = 0;
