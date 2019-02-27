@@ -136,7 +136,6 @@ static void *process_header(ogg_packet *op, spx_int32_t enh_enabled, spx_int32_t
 
 extern "C" int LLVMFuzzerTestOneInput(const uint8_t *fuzz_data, size_t fuzz_size)
 {
-   int c;
    output_type output[MAX_FRAME_SIZE];
    int frame_size=0, granule_frame_size=0;
    void *st=NULL;
@@ -151,8 +150,6 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t *fuzz_data, size_t fuzz_size
    ogg_stream_state os;
    int enh_enabled;
    int nframes=2;
-   int print_bitrate=0;
-   int close_in=0;
    int eos=0;
    SpeexStereoState stereo = SPEEX_STEREO_STATE_INIT;
    int channels=-1;
@@ -173,7 +170,7 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t *fuzz_data, size_t fuzz_size
    while (1)
    {
       char *data;
-      int i, j, nb_read;
+      int j, nb_read;
       /*Get the ogg buffer for writing*/
       nb_read = bytes_remaining > 200 ? 200 : bytes_remaining;
       data = ogg_sync_buffer(&oy, nb_read);
@@ -262,12 +259,10 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t *fuzz_data, size_t fuzz_size
                      speex_decode_stereo_func(output, frame_size, &stereo);
 
                   {
-                     int frame_offset = 0;
                      int new_frame_size = frame_size;
                      if (packet_no == 1 && j==0 && skip_samples > 0)
                      {
                         new_frame_size -= skip_samples+lookahead;
-                        frame_offset = skip_samples+lookahead;
                      }
                      if (packet_no == page_nb_packets && skip_samples < 0)
                      {
