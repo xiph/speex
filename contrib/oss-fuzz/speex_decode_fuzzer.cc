@@ -1,5 +1,5 @@
 /* Copyright (C) 2017 Tristan Matthews
-   File: speex_decode_fuzzer.c
+   File: speex_decode_fuzzer.cc
 
    Redistribution and use in source and binary forms, with or without
    modification, are permitted provided that the following conditions
