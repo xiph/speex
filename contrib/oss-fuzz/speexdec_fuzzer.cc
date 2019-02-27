@@ -60,13 +60,10 @@ static void *process_header(ogg_packet *op, spx_int32_t enh_enabled, spx_int32_t
    header = speex_packet_to_header((char*)op->packet, op->bytes);
    if (!header)
    {
-      fprintf (stderr, "Cannot read header\n");
       return NULL;
    }
    if (header->mode >= SPEEX_NB_MODES || header->mode<0)
    {
-      fprintf (stderr, "Mode number %d does not (yet/any longer) exist in this version\n",
-               header->mode);
       free(header);
       return NULL;
    }
@@ -77,20 +74,17 @@ static void *process_header(ogg_packet *op, spx_int32_t enh_enabled, spx_int32_t
 
    if (header->speex_version_id > 1)
    {
-      fprintf (stderr, "This file was encoded with Speex bit-stream version %d, which I don't know how to decode\n", header->speex_version_id);
       free(header);
       return NULL;
    }
 
    if (mode->bitstream_version < header->mode_bitstream_version)
    {
-      fprintf (stderr, "The file was encoded with a newer version of Speex. You need to upgrade in order to play it.\n");
       free(header);
       return NULL;
    }
    if (mode->bitstream_version > header->mode_bitstream_version)
    {
-      fprintf (stderr, "The file was encoded with an older version of Speex. You would need to downgrade the version in order to play it.\n");
       free(header);
       return NULL;
    }
@@ -98,7 +92,6 @@ static void *process_header(ogg_packet *op, spx_int32_t enh_enabled, spx_int32_t
    st = speex_decoder_init(mode);
    if (!st)
    {
-      fprintf (stderr, "Decoder initialization failed.\n");
       free(header);
       return NULL;
    }
@@ -208,7 +201,6 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t *fuzz_data, size_t fuzz_size
          {
             skip_samples = 0;
          }
-         /*printf ("page granulepos: %d %d %d\n", skip_samples, page_nb_packets, (int)page_granule);*/
          last_granule = page_granule;
          /*Extract all available packets*/
          packet_no=0;
@@ -251,12 +243,10 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t *fuzz_data, size_t fuzz_size
                      break;
                   if (ret==-2)
                   {
-                     fprintf (stderr, "Decoding error: corrupted stream?\n");
                      break;
                   }
                   if (speex_bits_remaining(&bits)<0)
                   {
-                     fprintf (stderr, "Decoding overflow: corrupted stream?\n");
                      break;
                   }
                   if (channels==2)
@@ -265,11 +255,8 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t *fuzz_data, size_t fuzz_size
                   {
                      int frame_offset = 0;
                      int new_frame_size = frame_size;
-                     /*printf ("packet %d %d\n", packet_no, skip_samples);*/
-                     /*fprintf (stderr, "packet %d %d %d\n", packet_no, skip_samples, lookahead);*/
                      if (packet_no == 1 && j==0 && skip_samples > 0)
                      {
-                        /*printf ("chopping first packet\n");*/
                         new_frame_size -= skip_samples+lookahead;
                         frame_offset = skip_samples+lookahead;
                      }
@@ -299,10 +286,7 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t *fuzz_data, size_t fuzz_size
 
    if (st)
       speex_decoder_destroy(st);
-   else
-   {
-      fprintf (stderr, "This doesn't look like a Speex file\n");
-   }
+
    speex_bits_destroy(&bits);
    if (stream_init)
       ogg_stream_clear(&os);
