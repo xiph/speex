@@ -47,7 +47,7 @@
     #define speex_decode_func(a, b, c) speex_decode_int(a, b, c)
 #endif
 
-int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size)
+extern "C" int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size)
 {
    output_type output[FRAME_SIZE];
    void *decoder_state;
