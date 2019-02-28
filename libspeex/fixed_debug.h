@@ -122,7 +122,7 @@ static inline short _SHL16(int a, int shift, char *file, int line)
    {
       fprintf (stderr, "SHL16: inputs are not short: %d %d in %s: line %d\n", a, shift, file, line);
    }
-   res = a<<shift;
+   res = (int)((unsigned)a<<shift);
    if (!VERIFY_SHORT(res))
       fprintf (stderr, "SHL16: output is not short: %d in %s: line %d\n", res, file, line);
    spx_mips++;
@@ -151,7 +151,7 @@ static inline int SHL32(long long a, int shift)
    {
       fprintf (stderr, "SHL32: inputs are not int: %d %d\n", (int)a, shift);
    }
-   res = a<<shift;
+   res = (long long)((unsigned long long)a<<shift);
    if (!VERIFY_INT(res))
    {
       fprintf (stderr, "SHL32: output is not int: %d\n", (int)res);
