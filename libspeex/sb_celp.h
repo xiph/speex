@@ -120,7 +120,7 @@ typedef struct SBDecState {
    spx_word16_t *innov_save;      /** If non-NULL, innovation is copied here */
    
    spx_word16_t last_ener;
-   spx_int32_t seed;
+   spx_uint32_t seed;
 
    int    encode_submode;
    const SpeexSubmode * const *submodes;

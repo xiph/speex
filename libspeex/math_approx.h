@@ -46,7 +46,7 @@
 #define spx_atan atan
 
 /** Generate a pseudo-random number */
-static inline spx_word16_t speex_rand(spx_word16_t std, spx_int32_t *seed)
+static inline spx_word16_t speex_rand(spx_word16_t std, spx_uint32_t *seed)
 {
    const unsigned int jflone = 0x3f800000;
    const unsigned int jflmsk = 0x007fffff;
@@ -119,7 +119,7 @@ static inline spx_int16_t spx_ilog4(spx_uint32_t x)
 #ifdef FIXED_POINT
 
 /** Generate a pseudo-random number */
-static inline spx_word16_t speex_rand(spx_word16_t std, spx_int32_t *seed)
+static inline spx_word16_t speex_rand(spx_word16_t std, spx_uint32_t *seed)
 {
    spx_word32_t res;
    *seed = 1664525 * *seed + 1013904223;
