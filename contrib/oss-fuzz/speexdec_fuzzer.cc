@@ -134,6 +134,10 @@ static void *process_header(ogg_packet *op, spx_int32_t enh_enabled, spx_int32_t
    return st;
 }
 
+static int is_safe_ogg_page_serialno(const ogg_page *og) {
+  return og->header[15] < (1 << 23) && og->header[16] < (1 << 15) && og->header[17] < (1 << 7);
+}
+
 extern "C" int LLVMFuzzerTestOneInput(const uint8_t *fuzz_data, size_t fuzz_size)
 {
    output_type output[MAX_FRAME_SIZE];
@@ -183,6 +187,12 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t *fuzz_data, size_t fuzz_size
       while (ogg_sync_pageout(&oy, &og)==1)
       {
          int packet_no;
+         if (!is_safe_ogg_page_serialno(&og)) {
+           speex_bits_destroy(&bits);
+           ogg_sync_clear(&oy);
+           return 0;
+         }
+
          if (stream_init == 0) {
             ogg_stream_init(&os, ogg_page_serialno(&og));
             stream_init = 1;
