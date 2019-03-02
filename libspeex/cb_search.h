@@ -70,7 +70,7 @@ const void *par,                /* non-overlapping codebook */
 int   nsf,                      /* number of samples in subframe */
 SpeexBits *bits,
 char *stack,
-spx_int32_t *seed
+spx_uint32_t *seed
 );
 
 
@@ -97,7 +97,7 @@ const void *par,                /* non-overlapping codebook */
 int   nsf,                      /* number of samples in subframe */
 SpeexBits *bits,
 char *stack,
-spx_int32_t *seed
+spx_uint32_t *seed
 );
 
 #endif
