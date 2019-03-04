@@ -243,7 +243,15 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t *fuzz_data, size_t fuzz_size
          if (page_granule>0 && frame_size)
          {
             /* FIXME: shift the granule values if --force-* is specified */
-            skip_samples = frame_size*(int64_t)(page_nb_packets*granule_frame_size*(int64_t)nframes - (page_granule-last_granule))/granule_frame_size;
+            int64_t a = page_nb_packets*granule_frame_size*(int64_t)nframes;
+            int64_t b = page_granule - last_granule;
+            if (b > a || (a - b) > INT64_MAX/320)
+            {
+               speex_bits_destroy(&bits);
+               ogg_sync_clear(&oy);
+               return 0;
+            }
+            skip_samples = frame_size*(int64_t)(a - b)/granule_frame_size;
             if (ogg_page_eos(&og))
                skip_samples = -skip_samples;
             /*else if (!ogg_page_bos(&og))
