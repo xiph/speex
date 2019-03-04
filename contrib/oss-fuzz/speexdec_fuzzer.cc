@@ -208,7 +208,7 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t *fuzz_data, size_t fuzz_size
          if (page_granule>0 && frame_size)
          {
             /* FIXME: shift the granule values if --force-* is specified */
-            skip_samples = frame_size*(page_nb_packets*granule_frame_size*nframes - (page_granule-last_granule))/granule_frame_size;
+            skip_samples = frame_size*(int64_t)(page_nb_packets*granule_frame_size*nframes - (page_granule-last_granule))/granule_frame_size;
             if (ogg_page_eos(&og))
                skip_samples = -skip_samples;
             /*else if (!ogg_page_bos(&og))
