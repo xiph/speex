@@ -138,6 +138,10 @@ static int is_safe_ogg_page_serialno(const ogg_page *og) {
   return og->header[17] < (1 << 7);
 }
 
+static int is_safe_ogg_page_pageno(const ogg_page *og) {
+  return og->header[21] < (1 << 7);
+}
+
 extern "C" int LLVMFuzzerTestOneInput(const uint8_t *fuzz_data, size_t fuzz_size)
 {
    output_type output[MAX_FRAME_SIZE];
@@ -201,6 +205,13 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t *fuzz_data, size_t fuzz_size
             /* so all streams are read. */
             ogg_stream_reset_serialno(&os, ogg_page_serialno(&og));
          }
+
+         if (!is_safe_ogg_page_pageno(&og)) {
+           speex_bits_destroy(&bits);
+           ogg_sync_clear(&oy);
+           return 0;
+         }
+
          /*Add page to the bitstream*/
          ogg_stream_pagein(&os, &og);
          page_granule = ogg_page_granulepos(&og);
