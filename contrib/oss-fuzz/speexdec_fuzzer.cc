@@ -135,7 +135,7 @@ static void *process_header(ogg_packet *op, spx_int32_t enh_enabled, spx_int32_t
 }
 
 static int is_safe_ogg_page_serialno(const ogg_page *og) {
-  return og->header[15] < (1 << 23) && og->header[16] < (1 << 15) && og->header[17] < (1 << 7);
+  return og->header[17] < (1 << 7);
 }
 
 extern "C" int LLVMFuzzerTestOneInput(const uint8_t *fuzz_data, size_t fuzz_size)
