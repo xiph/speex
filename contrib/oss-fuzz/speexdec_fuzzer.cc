@@ -107,6 +107,11 @@ static void *process_header(ogg_packet *op, spx_int32_t enh_enabled, spx_int32_t
    }
    speex_decoder_ctl(st, SPEEX_SET_ENH, &enh_enabled);
    speex_decoder_ctl(st, SPEEX_GET_FRAME_SIZE, frame_size);
+   if (*frame_size < 0 || *frame_size > 2*320)
+   {
+      free(header);
+      return NULL;
+   }
    *granule_frame_size = *frame_size;
 
    if (!*rate)
@@ -114,6 +119,11 @@ static void *process_header(ogg_packet *op, spx_int32_t enh_enabled, spx_int32_t
 
    speex_decoder_ctl(st, SPEEX_SET_SAMPLING_RATE, rate);
 
+   if (header->frames_per_packet < 1 ||  header->frames_per_packet > 10)
+   {
+      free(header);
+      return NULL;
+   }
    *nframes = header->frames_per_packet;
 
    if (*channels==-1)
