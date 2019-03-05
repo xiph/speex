@@ -166,6 +166,18 @@ static int is_safe_ogg_page_granulepos(const ogg_page *og){
 }
 
 
+static void cleanup(void *st, SpeexBits *bits, int stream_init, ogg_stream_state *os, ogg_sync_state *oy)
+{
+   if (st)
+      speex_decoder_destroy(st);
+
+   speex_bits_destroy(bits);
+   if (stream_init)
+      ogg_stream_clear(os);
+   ogg_sync_clear(oy);
+}
+
+
 extern "C" int LLVMFuzzerTestOneInput(const uint8_t *fuzz_data, size_t fuzz_size)
 {
    output_type output[MAX_FRAME_SIZE];
@@ -216,9 +228,8 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t *fuzz_data, size_t fuzz_size
       {
          int packet_no;
          if (!is_safe_ogg_page_serialno(&og)) {
-           speex_bits_destroy(&bits);
-           ogg_sync_clear(&oy);
-           return 0;
+            cleanup(st, &bits, stream_init, &os, &oy);
+            return 0;
          }
 
          if (stream_init == 0) {
@@ -231,9 +242,8 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t *fuzz_data, size_t fuzz_size
          }
 
          if (!is_safe_ogg_page_pageno(&og) || !is_safe_ogg_page_granulepos(&og)) {
-           speex_bits_destroy(&bits);
-           ogg_sync_clear(&oy);
-           return 0;
+            cleanup(st, &bits, stream_init, &os, &oy);
+            return 0;
          }
 
          /*Add page to the bitstream*/
@@ -247,8 +257,7 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t *fuzz_data, size_t fuzz_size
             int64_t b = page_granule - last_granule;
             if (b > a || (a - b) > INT64_MAX/320)
             {
-               speex_bits_destroy(&bits);
-               ogg_sync_clear(&oy);
+               cleanup(st, &bits, stream_init, &os, &oy);
                return 0;
             }
             skip_samples = frame_size*(int64_t)(a - b)/granule_frame_size;
@@ -342,13 +351,7 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t *fuzz_data, size_t fuzz_size
          break;
    }
 
-   if (st)
-      speex_decoder_destroy(st);
-
-   speex_bits_destroy(&bits);
-   if (stream_init)
-      ogg_stream_clear(&os);
-   ogg_sync_clear(&oy);
+   cleanup(st, &bits, stream_init, &os, &oy);
 
    return 0;
 }
