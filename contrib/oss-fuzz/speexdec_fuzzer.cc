@@ -144,28 +144,6 @@ static void *process_header(ogg_packet *op, spx_int32_t enh_enabled, spx_int32_t
    return st;
 }
 
-static int is_safe_ogg_page_serialno(const ogg_page *og) {
-  return og->header[17] < (1 << 7);
-}
-
-static int is_safe_ogg_page_pageno(const ogg_page *og) {
-  return og->header[21] < (1 << 7);
-}
-
-static int is_safe_ogg_page_granulepos(const ogg_page *og){
-  int i;
-  unsigned char *page=og->header;
-  ogg_int64_t granulepos=page[13]&(0xff);
-  for (i = 12; i > 5; i--) {
-    if (granulepos > (INT64_MAX >> 8)) {
-      return 0;
-    }
-    granulepos = (granulepos<<8)|(page[i]&0xff);
-  }
-  return 1;
-}
-
-
 static void cleanup(void *st, SpeexBits *bits, int stream_init, ogg_stream_state *os, ogg_sync_state *oy)
 {
    if (st)
@@ -227,10 +205,6 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t *fuzz_data, size_t fuzz_size
       while (ogg_sync_pageout(&oy, &og)==1)
       {
          int packet_no;
-         if (!is_safe_ogg_page_serialno(&og)) {
-            cleanup(st, &bits, stream_init, &os, &oy);
-            return 0;
-         }
 
          if (stream_init == 0) {
             ogg_stream_init(&os, ogg_page_serialno(&og));
@@ -239,11 +213,6 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t *fuzz_data, size_t fuzz_size
          if (ogg_page_serialno(&og) != os.serialno) {
             /* so all streams are read. */
             ogg_stream_reset_serialno(&os, ogg_page_serialno(&og));
-         }
-
-         if (!is_safe_ogg_page_pageno(&og) || !is_safe_ogg_page_granulepos(&og)) {
-            cleanup(st, &bits, stream_init, &os, &oy);
-            return 0;
          }
 
          /*Add page to the bitstream*/
