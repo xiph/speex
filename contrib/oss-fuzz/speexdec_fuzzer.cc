@@ -234,8 +234,10 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t *fuzz_data, size_t fuzz_size
                skip_samples = -skip_samples;
             /*else if (!ogg_page_bos(&og))
                skip_samples = 0;*/
-         } else
-         {
+         } else if (page_granule<-1) {
+            cleanup(st, &bits, stream_init, &os, &oy);
+            return 0;
+         } else {
             skip_samples = 0;
          }
          last_granule = page_granule;
