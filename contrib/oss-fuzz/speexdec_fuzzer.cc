@@ -256,10 +256,7 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t *fuzz_data, size_t fuzz_size
                st = process_header(&op, enh_enabled, &frame_size, &granule_frame_size, &rate, &nframes, &channels, &stereo, &extra_headers);
                if (!st)
                {
-                 speex_bits_destroy(&bits);
-                 if (stream_init)
-                     ogg_stream_clear(&os);
-                 ogg_sync_clear(&oy);
+                 cleanup(st, &bits, stream_init, &os, &oy);
                  return 0;
                }
                speex_decoder_ctl(st, SPEEX_GET_LOOKAHEAD, &lookahead);
