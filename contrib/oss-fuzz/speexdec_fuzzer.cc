@@ -40,6 +40,7 @@
 
 #include <ogg/ogg.h>
 
+#include <limits.h>
 #include <math.h>
 
 #include <string.h>
