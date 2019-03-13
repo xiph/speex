@@ -138,6 +138,11 @@ static void *process_header(ogg_packet *op, spx_int32_t enh_enabled, spx_int32_t
       speex_decoder_ctl(st, SPEEX_SET_HANDLER, &callback);
    }
 
+   if (header->extra_headers > INT_MAX - 1)
+   {
+      free(header);
+      return NULL;
+   }
    *extra_headers = header->extra_headers;
 
    free(header);
