@@ -13,7 +13,7 @@ pkgconfig_DATA = speex.pc
 
 EXTRA_DIST = Speex.spec Speex.spec.in Speex.kdevelop speex.m4 speex.pc.in \
 	README.blackfin README.symbian README.TI-DSP CMakeLists.txt config.h.cmake \
-	$(cmake_files)
+	$(cmake_files) .appveyor.yml
 
 cmake_files = cmake/FindOgg.cmake cmake/FindSpeexDsp.cmake \
 	cmake/FindSpeexDsp.cmake cmake/SpeexConfig.cmake cmake/TestVarArrays.cmake
