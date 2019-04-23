@@ -395,16 +395,17 @@ endif()
 
 # Installation
 
-set(INSTALL_TARGETS speex)
-if(NOT DISABLE_BINARIES)
-	list(APPEND INSTALL_TARGETS speexenc speexdec)
-endif()
-install(TARGETS ${INSTALL_TARGETS}
-	EXPORT SpeexTargets
+install(TARGETS speex
+	EXPORT speex-targets
 	RUNTIME	DESTINATION			${CMAKE_INSTALL_BINDIR}
 	ARCHIVE DESTINATION			${CMAKE_INSTALL_LIBDIR}
 	LIBRARY DESTINATION			${CMAKE_INSTALL_LIBDIR}
 	PUBLIC_HEADER DESTINATION	${CMAKE_INSTALL_INCLUDEDIR}/speex)
+
+if(NOT DISABLE_BINARIES)
+	install(TARGETS speexdec speexenc RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
+endif()
+
 install(FILES doc/manual.pdf DESTINATION ${CMAKE_INSTALL_DOCDIR})
 install(FILES src/speexenc.1 src/speexdec.1 DESTINATION ${CMAKE_INSTALL_MANDIR}/man1)
 install(FILES speex.m4 DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/aclocal)
@@ -426,9 +427,9 @@ configure_file(Speex.spec.in Speex.spec @ONLY)
 
 if (ENABLE_PACKAGE_CONFIG)
 	include (CMakePackageConfigHelpers)
-	write_basic_package_version_file (SpeexConfigVersion.cmake COMPATIBILITY SameMajorVersion)
+	write_basic_package_version_file (speex-config-version.cmake COMPATIBILITY SameMajorVersion)
 	set(CMAKE_INSTALL_PACKAGEDIR ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME})
-	install(EXPORT SpeexTargets NAMESPACE Speex:: DESTINATION ${CMAKE_INSTALL_PACKAGEDIR})
-	install(FILES ${CMAKE_CURRENT_BINARY_DIR}/SpeexConfigVersion.cmake DESTINATION ${CMAKE_INSTALL_PACKAGEDIR})
-	install(FILES cmake/SpeexConfig.cmake DESTINATION ${CMAKE_INSTALL_PACKAGEDIR})
+	install(EXPORT speex-targets NAMESPACE Speex:: DESTINATION ${CMAKE_INSTALL_PACKAGEDIR})
+	install(FILES ${CMAKE_CURRENT_BINARY_DIR}/speex-config-version.cmake DESTINATION ${CMAKE_INSTALL_PACKAGEDIR})
+	install(FILES cmake/speex-config.cmake DESTINATION ${CMAKE_INSTALL_PACKAGEDIR})
 endif()
