@@ -58,9 +58,9 @@ if((NOT ENABLE_FLOATING_POINT) AND (NOT ENABLE_FIXED_POINT))
 	message(FATAL_ERROR "Select one of ENABLE_FLOATING_POINT of ENABLE_FIXED_POINT.")
 endif()
 
-find_package(FFTW)
+find_package(FFTW3)
 
-cmake_dependent_option(USE_GPL_FFTW3 "Use FFTW3 for FFT" OFF "FFTW_FOUND; ENABLE_FLOATING_POINT" OFF)
+cmake_dependent_option(USE_GPL_FFTW3 "Use FFTW3 for FFT" OFF "FFTW3_FOUND; ENABLE_FLOATING_POINT" OFF)
 
 if(ENABLE_FLOATING_POINT)
 	set(FLOATING_POINT 1)
@@ -156,10 +156,10 @@ set_package_properties(SpeexDsp PROPERTIES TYPE RECOMMENDED
 	URL "https://speex.org/"
 	DESCRIPTION "speech processing library that goes along with the Speex codec"
 	PURPOSE "Enables speexenc tool preprocessing options")
-set_package_properties(FFTW PROPERTIES TYPE OPTIONAL
+set_package_properties(FFTW3 PROPERTIES TYPE OPTIONAL
 	URL "http://www.fftw.org/"
 	DESCRIPTION "fast Fourier transform library"
-	PURPOSE "Enables use of FFTW for fast Fourier transforms")
+	PURPOSE "Enables use of FFTW3 for fast Fourier transforms")
 add_feature_info(ENABLE_ALLOCA USE_ALLOCA "Make use of alloca function.")
 add_feature_info(ENABLE_VAR_ARRAYS VAR_ARRAYS "Make use of variable-length arrays.")
 add_feature_info(ENABLE_FLOATING_POINT ENABLE_FLOATING_POINT "compile as floating-point.")
@@ -272,11 +272,11 @@ target_include_directories(speex
 	PUBLIC $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
 if(USE_GPL_FFTW3)
 	target_include_directories(speex
-		PRIVATE $<BUILD_INTERFACE:${FFTW_INCLUDE_DIRS}>)
+		PRIVATE $<BUILD_INTERFACE:${FFTW3_INCLUDE_DIRS}>)
 	if(BUILD_SHARED_LIBS)
-		target_link_libraries(speex PRIVATE ${FFTW_LIBRARIES})
+		target_link_libraries(speex PRIVATE ${FFTW3_LIBRARIES})
 	else()
-		target_link_libraries(speex PUBLIC ${FFTW_LIBRARIES})
+		target_link_libraries(speex PUBLIC ${FFTW3_LIBRARIES})
 	endif()
 endif()
 if(HAVE_LIBM)
