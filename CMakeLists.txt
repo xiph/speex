@@ -328,10 +328,9 @@ add_executable(speexenc ${speexenc_SOURCES})
 target_include_directories(speexenc
 	PRIVATE
 		$<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
-		$<BUILD_INTERFACE:${OGG_INCLUDE_DIRS}>
 		$<BUILD_INTERFACE:${SPEEXDSP_INCLUDE_DIRS}>)
 target_link_libraries(speexenc
-	PUBLIC speex ${OGG_LIBRARIES} ${SPEEXDSP_LIBRARIES})
+	PUBLIC speex Ogg::ogg ${SPEEXDSP_LIBRARIES})
 if(WIN32)
 	target_link_libraries(speexenc PRIVATE winmm.lib)
 endif()
