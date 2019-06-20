@@ -110,6 +110,7 @@ static void *process_header(ogg_packet *op, spx_int32_t enh_enabled, spx_int32_t
    speex_decoder_ctl(st, SPEEX_GET_FRAME_SIZE, frame_size);
    if (*frame_size < 0 || *frame_size > 2*320)
    {
+      speex_decoder_destroy(st);
       free(header);
       return NULL;
    }
@@ -122,6 +123,7 @@ static void *process_header(ogg_packet *op, spx_int32_t enh_enabled, spx_int32_t
 
    if (header->frames_per_packet < 1 ||  header->frames_per_packet > 10)
    {
+      speex_decoder_destroy(st);
       free(header);
       return NULL;
    }
@@ -141,6 +143,7 @@ static void *process_header(ogg_packet *op, spx_int32_t enh_enabled, spx_int32_t
 
    if (header->extra_headers > INT_MAX - 1)
    {
+      speex_decoder_destroy(st);
       free(header);
       return NULL;
    }
