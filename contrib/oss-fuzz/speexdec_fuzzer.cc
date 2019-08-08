@@ -191,6 +191,10 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t *fuzz_data, size_t fuzz_size
 
    enh_enabled = 1;
 
+   /*Check fuzz_data meets size requirements*/
+   if (fuzz_size > 4096)
+      return 0;
+
    /*Init Ogg data struct*/
    ogg_sync_init(&oy);
 
