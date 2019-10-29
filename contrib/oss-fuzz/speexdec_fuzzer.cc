@@ -237,7 +237,7 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t *fuzz_data, size_t fuzz_size
             /* FIXME: shift the granule values if --force-* is specified */
             int64_t a = page_nb_packets*granule_frame_size*(int64_t)nframes;
             int64_t b = page_granule - last_granule;
-            if (b > a || (a - b) > INT64_MAX/640)
+            if (b > a || (INT64_MAX/640 - a < -b) || (a - b) > INT64_MAX/640)
             {
                cleanup(st, &bits, stream_init, &os, &oy);
                return 0;
