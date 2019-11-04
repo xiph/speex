@@ -311,6 +311,7 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t *fuzz_data, size_t fuzz_size
                   if (channels==2)
                      speex_decode_stereo_func(output, frame_size, &stereo);
 
+                  if (INT_MAX - lookahead > skip_samples)
                   {
                      int new_frame_size = frame_size;
                      if (packet_no == 1 && j==0 && skip_samples > 0)
