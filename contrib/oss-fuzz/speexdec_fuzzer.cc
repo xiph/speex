@@ -232,7 +232,7 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t *fuzz_data, size_t fuzz_size
          ogg_stream_pagein(&os, &og);
          page_granule = ogg_page_granulepos(&og);
          page_nb_packets = ogg_page_packets(&og);
-         if (page_granule>0 && frame_size)
+         if (page_granule>0 && frame_size && (last_granule > 0 || INT64_MAX + last_granule > page_granule))
          {
             /* FIXME: shift the granule values if --force-* is specified */
             int64_t a = page_nb_packets*granule_frame_size*(int64_t)nframes;
