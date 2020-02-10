@@ -134,7 +134,7 @@ find_package(Ogg)
 find_package(SpeexDsp)
 
 cmake_dependent_option(USE_SPEEXDSP "Enable SpeexDSP library" ON "SpeexDsp_FOUND" OFF)
-cmake_dependent_option(DISABLE_BINARIES "Do not build the encoder and decoder programs, only the library" OFF "Ogg_FOUND" OFF)
+cmake_dependent_option(BUILD_PROGRAMS "Build the encoder and decoder programs, not only the library" ON "Ogg_FOUND" ON)
 
 check_c_compiler_flag("-fvisibility=hidden" HAS_VISIBILITY)
 if(HAS_VISIBILITY)
@@ -174,7 +174,7 @@ add_feature_info(DISABLE_FLOAT_API DISABLE_FLOAT_API "disable all parts of the A
 add_feature_info(DISABLE_VBR DISABLE_VBR "disable VBR and VAD from the codec.")
 add_feature_info(ENABLE_VORBIS_PSY ENABLE_VORBIS_PSY "enable the Vorbis psy model.")
 add_feature_info(ENABLE_SPEEXDSP USE_SPEEXDSP "enable speexenc preprocessing options.")
-add_feature_info(DISABLE_BINARIES DISABLE_BINARIES "do not build the encoder and decoder programs, only the library.")
+add_feature_info(BUILD_BINARIES BUILD_BINARIES "build the encoder and decoder programs, not only the library.")
 add_feature_info(ENABLE_PACKAGE_CONFIG ENABLE_PACKAGE_CONFIG "generate and install package config file")
 add_feature_info(USE_GPL_FFTW3 USE_GPL_FFTW3 "Use FFTW3 library for fast Fourier transforms")
 feature_summary(WHAT ALL)
@@ -318,7 +318,7 @@ endif()
 
 # Programs
 
-if(NOT DISABLE_BINARIES)
+if(BUILD_BINARIES)
 
 SET(speexenc_SOURCES
 	src/speexenc.c
@@ -402,7 +402,7 @@ install(TARGETS speex
 	LIBRARY DESTINATION			${CMAKE_INSTALL_LIBDIR}
 	PUBLIC_HEADER DESTINATION	${CMAKE_INSTALL_INCLUDEDIR}/speex)
 
-if(NOT DISABLE_BINARIES)
+if(BUILD_BINARIES)
 	install(TARGETS speexdec speexenc RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 endif()
 
