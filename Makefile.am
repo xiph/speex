@@ -16,7 +16,7 @@ EXTRA_DIST = Speex.spec Speex.spec.in Speex.kdevelop speex.m4 speex.pc.in \
 	$(cmake_files) .appveyor.yml
 
 cmake_files = cmake/FindOgg.cmake cmake/FindSpeexDsp.cmake \
-	cmake/FindSpeexDsp.cmake cmake/SpeexConfig.cmake cmake/TestVarArrays.cmake
+	cmake/FindSpeexDsp.cmake cmake/speex-config.cmake cmake/TestVarArrays.cmake
 
 #Fools KDevelop into including all files
 SUBDIRS = libspeex include doc win32 symbian ti
