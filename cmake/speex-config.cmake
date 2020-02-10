@@ -1,1 +1,1 @@
-include (${CMAKE_CURRENT_LIST_DIR}/SpeexTargets.cmake)
+include (${CMAKE_CURRENT_LIST_DIR}/speex-targets.cmake)
