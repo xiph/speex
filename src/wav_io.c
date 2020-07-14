@@ -111,7 +111,7 @@ int read_wav_header(FILE *file, int *rate, int *channels, int *format, spx_int32
    stmp = le_short(stmp);
    *channels = stmp;
 
-   if (stmp>2)
+   if (stmp>2 || stmp<1)
    {
       fprintf (stderr, "Only mono and (intensity) stereo supported\n");
       return -1;
