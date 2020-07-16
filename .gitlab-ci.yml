@@ -11,6 +11,26 @@ autoconf:
       apt-get install -y libogg-dev
   script:
     - ./autogen.sh
-    - ./configure
+    - ./configure ${CONFIG_FLAGS}
     - make
     - make distcheck
+
+fixed-point:
+  extends: autoconf
+  variables:
+    CONFIG_FLAGS: --enable-fixed-point
+
+no-float:
+  extends: autoconf
+  variables:
+    CONFIG_FLAGS: --enable-fixed-point --disable-float-api
+
+vorbis-psy:
+  extends: autoconf
+  variables:
+    CONFIG_FLAGS: --enable-vorbis-psy
+
+no-binaries:
+  extends: autoconf
+  variables:
+    CONFIG_FLAGS: --disable-binaries
