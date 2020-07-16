@@ -13,6 +13,7 @@ default:
     - ./autogen.sh
     - ./configure ${CONFIG_FLAGS}
     - make
+    - make check
 
 autoconf:
   extends: .autoconf
