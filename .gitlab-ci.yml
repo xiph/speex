@@ -1,0 +1,16 @@
+default:
+  tags:
+    - docker
+  # Image from https://hub.docker.com/_/gcc/ based on Debian
+  image: gcc:9
+
+autoconf:
+  stage: build
+  before_script:
+    - apt-get update &&
+      apt-get install -y libogg-dev
+  script:
+    - ./autogen.sh
+    - ./configure
+    - make
+    - make distcheck
