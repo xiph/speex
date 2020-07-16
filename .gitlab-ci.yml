@@ -4,7 +4,7 @@ default:
   # Image from https://hub.docker.com/_/gcc/ based on Debian
   image: gcc:9
 
-autoconf:
+.autoconf:
   stage: build
   before_script:
     - apt-get update &&
@@ -13,24 +13,31 @@ autoconf:
     - ./autogen.sh
     - ./configure ${CONFIG_FLAGS}
     - make
+
+autoconf:
+  extends: .autoconf
+  script:
+    - ./autogen.sh
+    - ./configure ${CONFIG_FLAGS}
+    - make
     - make distcheck
 
 fixed-point:
-  extends: autoconf
+  extends: .autoconf
   variables:
     CONFIG_FLAGS: --enable-fixed-point
 
 no-float:
-  extends: autoconf
+  extends: .autoconf
   variables:
     CONFIG_FLAGS: --enable-fixed-point --disable-float-api
 
 vorbis-psy:
-  extends: autoconf
+  extends: .autoconf
   variables:
     CONFIG_FLAGS: --enable-vorbis-psy
 
 no-binaries:
-  extends: autoconf
+  extends: .autoconf
   variables:
     CONFIG_FLAGS: --disable-binaries
