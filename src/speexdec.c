@@ -86,10 +86,10 @@
 
 #define MAX_FRAME_SIZE 2000
 
-#define readint(buf, base) (((buf[base+3]<<24)&0xff000000)| \
-                           ((buf[base+2]<<16)&0xff0000)| \
-                           ((buf[base+1]<<8)&0xff00)| \
-                            (buf[base]&0xff))
+#define readint(buf, base) ((((unsigned)buf[base+3]<<24)&0xff000000)| \
+                           (((unsigned)buf[base+2]<<16)&0xff0000)| \
+                           (((unsigned)buf[base+1]<<8)&0xff00)| \
+                            ((unsigned)buf[base]&0xff))
 
 static void print_comments(char *comments, int length)
 {
