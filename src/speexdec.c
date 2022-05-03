@@ -86,10 +86,10 @@
 
 #define MAX_FRAME_SIZE 2000
 
-#define readint(buf, base) ((((unsigned)buf[base+3]<<24)&0xff000000)| \
-                           (((unsigned)buf[base+2]<<16)&0xff0000)| \
-                           (((unsigned)buf[base+1]<<8)&0xff00)| \
-                            ((unsigned)buf[base]&0xff))
+#define readint(buf) ((((unsigned)buf[3]<<24)&0xff000000)| \
+                      (((unsigned)buf[2]<<16)&0xff0000)| \
+                      (((unsigned)buf[1]<<8)&0xff00)| \
+                       ((unsigned)buf[0]&0xff))
 
 static void print_comments(char *comments, int length)
 {
@@ -103,7 +103,7 @@ static void print_comments(char *comments, int length)
       return;
    }
    end = c+length;
-   len=readint(c, 0);
+   len=readint(c);
    c+=4;
    if (len < 0 || c+len>end)
    {
@@ -118,7 +118,7 @@ static void print_comments(char *comments, int length)
       fprintf (stderr, "Invalid/corrupted comments\n");
       return;
    }
-   nb_fields=readint(c, 0);
+   nb_fields=readint(c);
    c+=4;
    for (i=0;i<nb_fields;i++)
    {
@@ -127,7 +127,7 @@ static void print_comments(char *comments, int length)
          fprintf (stderr, "Invalid/corrupted comments\n");
          return;
       }
-      len=readint(c, 0);
+      len=readint(c);
       c+=4;
       if (len < 0 || c+len>end)
       {
