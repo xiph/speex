@@ -27,8 +27,8 @@ AM_INIT_AUTOMAKE([foreign no-define])
 AM_MAINTAINER_MODE([enable])
 
 AC_CANONICAL_HOST
-AC_LIBTOOL_WIN32_DLL
-AM_PROG_LIBTOOL
+_LT_SET_OPTION([LT_INIT],[win32-dll])
+LT_INIT
 
 AC_C_BIGENDIAN
 AC_C_CONST
@@ -37,15 +37,13 @@ AC_C_RESTRICT
 
 
 AC_MSG_CHECKING(for C99 variable-size arrays)
-AC_TRY_COMPILE( , [
++AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[]], [[
 int foo;
 foo = 10;
 int array[foo];
-],
-[has_var_arrays=yes;AC_DEFINE([VAR_ARRAYS], [], [Use C99 variable-size arrays])
-],
-has_var_arrays=no
-)
+]])],[has_var_arrays=yes;AC_DEFINE([VAR_ARRAYS], [], [Use C99 variable-size arrays])
+],[has_var_arrays=no
+])
 AC_MSG_RESULT($has_var_arrays)
 
 AC_CHECK_HEADERS([alloca.h getopt.h])
