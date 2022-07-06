@@ -371,6 +371,8 @@ int main(int argc, char **argv)
 
    comment_init(&comments, &comments_length, vendor_string);
 
+   memset(input, 0, sizeof(input));
+
    /*Process command-line options*/
    while(1)
    {
