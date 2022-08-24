@@ -37,7 +37,7 @@ AC_C_RESTRICT
 
 
 AC_MSG_CHECKING(for C99 variable-size arrays)
-+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[]], [[
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[]], [[
 int foo;
 foo = 10;
 int array[foo];
