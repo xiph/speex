@@ -41,11 +41,14 @@
 
 #define VERSION_STRING "\n 0.7.0\n"
 
-#define Cdecl               __cdecl
-#define __attribute__(x)
 #define sleep(__sec)        Sleep ((__sec) * 1000)
+#define Cdecl               __cdecl
+
+#ifdef _MSC_VER
+#define __attribute__(x)
 #define inline              __inline
 #define restrict
+#endif
 
 //// constants /////////////////////////////////////////////////////
 
