@@ -318,7 +318,7 @@ int alsa_device_read(AlsaDevice *dev, short *pcm, int len)
          //fprintf(stderr, "error %d, EPIPE = %d\n", err, EPIPE);
          if (err == -EPIPE)
          {
-            fprintf (stderr, "An overrun has occured, reseting capture\n");
+            fprintf (stderr, "An overrun has occurred, resetting capture\n");
          } else
          {
             fprintf (stderr, "read from audio interface failed (%s)\n",
@@ -353,7 +353,7 @@ int alsa_device_write(AlsaDevice *dev, const short *pcm, int len)
       {
          if (err == -EPIPE)
          {
-            fprintf (stderr, "An underrun has occured, reseting playback, len=%d\n", len);
+            fprintf (stderr, "An underrun has occurred, resetting playback, len=%d\n", len);
          } else
          {
             fprintf (stderr, "write to audio interface failed (%s)\n",
