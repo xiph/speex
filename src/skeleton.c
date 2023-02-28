@@ -98,7 +98,7 @@ ogg_packet ogg_from_fisbone(fisbone_packet *fp) {
     return op;
 }
 
-/* fills up a fishead_packet from a fishead ogg_packet of a skeleton bistream */
+/* fills up a fishead_packet from a fishead ogg_packet of a skeleton bitstream */
 fishead_packet fishead_from_ogg(ogg_packet *op) {
 
     fishead_packet fp;
