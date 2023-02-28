@@ -83,7 +83,7 @@ extern const SpeexMode * const speex_mode_list[SPEEX_NB_MODES];
 (14)	quant_lsp.c
 (15)	vq.c
 
--- reorder macro definations in quant_lsp.c
+-- reorder macro definitions in quant_lsp.c
 #ifdef FIXED_POINT
 
 #define LSP_LINEAR(i)		(SHL16(i+1,11))
@@ -126,7 +126,7 @@ extern const SpeexMode * const speex_mode_list[SPEEX_NB_MODES];
 (5) kiss_fft.c
 (6) kiss_fftr.c
 
--- created a new USE_COMPACT_KISS_FFT for fftwrap.c and shifted defination 
+-- created a new USE_COMPACT_KISS_FFT for fftwrap.c and shifted definition
 -- to config file so that user configure the usage of fft on config.h
 -- TOEXPLORE:is it possible to share table between mdf/preprocess?
 -- Introducing this macro made the following changes in C code 
