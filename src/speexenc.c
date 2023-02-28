@@ -149,7 +149,7 @@ static int read_samples(FILE *fin,int frame_size, int bits, int channels, int ls
       }
    }
 
-   /* FIXME: This is probably redundent now */
+   /* FIXME: This is probably redundant now */
    /* copy to float input buffer */
    for (i=0;i<frame_size*channels;i++)
    {
@@ -903,7 +903,7 @@ int main(int argc, char **argv)
       op.packet = (unsigned char *)cbits;
       op.bytes = nbBytes;
       op.b_o_s = 0;
-      /*Is this redundent?*/
+      /*Is this redundant?*/
       if (eos && total_samples<=nb_encoded)
          op.e_o_s = 1;
       else
