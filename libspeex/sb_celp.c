@@ -1343,7 +1343,7 @@ int sb_decode(void *state, SpeexBits *bits, void *vout)
       /* LSP to LPC */
       lsp_to_lpc(interp_qlsp, ak, st->lpcSize, stack);
 
-      /* Calculate reponse ratio between the low and high filter in the middle
+      /* Calculate response ratio between the low and high filter in the middle
          of the band (4000 Hz) */
 
          st->pi_gain[sub]=LPC_SCALING;
