@@ -18,16 +18,22 @@ AC_ARG_ENABLE(speextest, [  --disable-speextest       Do not try to compile and 
 
   if test "x$speex_libraries" != "x" ; then
     SPEEX_LIBS="-L$speex_libraries"
+  elif test "x$speex_prefix" = "xno" || test "x$speex_prefix" = "xyes" ; then
+    SPEEX_LIBS=""
   elif test "x$speex_prefix" != "x" ; then
     SPEEX_LIBS="-L$speex_prefix/lib"
   elif test "x$prefix" != "xNONE" ; then
     SPEEX_LIBS="-L$prefix/lib"
   fi
 
-  SPEEX_LIBS="$SPEEX_LIBS -lspeex"
+  if test "x$speex_prefix" != "xno" ; then
+    SPEEX_LIBS="$SPEEX_LIBS -lspeex"
+  fi
 
   if test "x$speex_includes" != "x" ; then
     SPEEX_CFLAGS="-I$speex_includes"
+  elif test "x$speex_prefix" = "xno" || test "x$speex_prefix" = "xyes" ; then
+    SPEEX_CFLAGS=""
   elif test "x$speex_prefix" != "x" ; then
     SPEEX_CFLAGS="-I$speex_prefix/include"
   elif test "x$prefix" != "xNONE"; then
@@ -35,7 +41,12 @@ AC_ARG_ENABLE(speextest, [  --disable-speextest       Do not try to compile and 
   fi
 
   AC_MSG_CHECKING(for Speex)
-  no_speex=""
+  if test "x$speex_prefix" = "xno" ; then
+    no_speex="disabled"
+    enable_speextest="no"
+  else
+    no_speex=""
+  fi
 
 
   if test "x$enable_speextest" = "xyes" ; then
@@ -53,7 +64,7 @@ dnl
 #include <string.h>
 #include <speex/speex.h>
 
-int main ()
+int main (void)
 {
   system("touch conf.speextest");
   return 0;
@@ -64,9 +75,12 @@ int main ()
        LIBS="$ac_save_LIBS"
   fi
 
-  if test "x$no_speex" = "x" ; then
+  if test "x$no_speex" = "xdisabled" ; then
+     AC_MSG_RESULT(no)
+     ifelse([$2], , :, [$2])
+  elif test "x$no_speex" = "x" ; then
      AC_MSG_RESULT(yes)
-     ifelse([$1], , :, [$1])     
+     ifelse([$1], , :, [$1])
   else
      AC_MSG_RESULT(no)
      if test -f conf.speextest ; then
@@ -89,7 +103,7 @@ int main ()
        echo "*** If you have an old version installed, it is best to remove it, although"
        echo "*** you may also be able to get things to work by modifying LD_LIBRARY_PATH"],
        [ echo "*** The test program failed to compile or link. See the file config.log for the"
-       echo "*** exact error that occured. This usually means Speex was incorrectly installed"
+       echo "*** exact error that occurred. This usually means Speex was incorrectly installed"
        echo "*** or that you have moved Speex since it was installed." ])
        CFLAGS="$ac_save_CFLAGS"
        LIBS="$ac_save_LIBS"
