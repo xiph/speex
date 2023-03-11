@@ -1,0 +1,44 @@
+option('fft', type: 'combo', choices: ['auto', 'kiss', 'smallft', 'gpl-fftw3', 'proprietary-intel-mkl'], value: 'auto',
+       description: 'Use an alternate FFT implementation (auto = kiss for fixed point and smallft for floating point')
+
+option('test-binaries', type: 'feature', value: 'auto',
+       description: 'Build speex test binaries')
+
+option('fixed-point', type: 'feature', value: 'disabled',
+       description: 'Use fixed-point arithmetic instead of floating-point')
+
+option('fixed-point-debug', type: 'feature', value: 'disabled',
+       description: 'Debug fixed-point arithmetic implementation])')
+
+option('float-api', type: 'feature', value: 'enabled',
+       description: 'Disable all parts of the API that are using floats')
+
+option('tools', type: 'feature', value: 'auto',
+       description: 'Build speex command line tools')
+
+option('valgrind', type: 'feature', value: 'disabled',
+       description: 'Enable valgrind extra checks')
+
+option('vbr', type: 'feature', value: 'enabled',
+       description: 'Disable support for VBR and VAD from the codec')
+
+option('vorbis-psy', type: 'feature', value: 'disabled',
+       description: 'Enable support for the Vorbis psy model')
+
+# Assembly + DSP options
+option('arm4-asm', type: 'feature', value: 'disabled',
+       description: 'Make use of ARM4 assembly optimizations')
+
+option('arm5e-asm', type: 'feature', value: 'disabled',
+       description: 'Make use of ARM5E assembly optimizations')
+
+option('blackfin-asm', type: 'feature', value: 'disabled',
+       description: 'Make use of Blackfin assembly optimizations')
+
+option('sse', type: 'feature', value: 'auto',
+       description: 'Enable or disable SSE support')
+
+#option('ti-c55x', type: 'feature', value: 'disabled',
+#       description: 'Enable support for TI C55X DSP')
+
+
