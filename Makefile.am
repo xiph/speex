@@ -24,5 +24,9 @@ endif
 
 DIST_SUBDIRS = libspeex include src doc win32 symbian ti
 
+# Make sure versions stay in sync
+check-local:
+	@$(GREP) $(SPEEX_VERSION) $(top_srcdir)/meson.build >/dev/null || { echo; echo "Package version in meson.build doesn't match version in configure.ac"; echo; exit 1; }
+
 rpm: dist
 	rpmbuild -ta ${PACKAGE}-${VERSION}.tar.gz
