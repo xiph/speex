@@ -42,3 +42,35 @@ no-binaries:
   extends: .autoconf
   variables:
     CONFIG_FLAGS: --disable-binaries
+
+.meson:
+  stage: build
+  image: 'debian:bookworm'
+  before_script:
+    - apt-get update &&
+      apt-get install -y libogg-dev ninja-build meson
+  script:
+    - meson setup builddir ${CONFIG_FLAGS}
+    - ninja -C builddir
+    - ninja -C builddir test
+    - ninja -C builddir install
+
+meson fixed-point:
+  extends: .meson
+  variables:
+    CONFIG_FLAGS: -Dfixed-point=enabled
+
+meson no-float:
+  extends: .meson
+  variables:
+    CONFIG_FLAGS: -Dfixed-point=enabled -Dfloat-api=disabled
+
+meson vorbis-psy:
+  extends: .meson
+  variables:
+    CONFIG_FLAGS: -Dvorbis-psy=enabled
+
+meson no-binaries:
+  extends: .meson
+  variables:
+    CONFIG_FLAGS: -Dtools=disabled -Dtest-binaries=disabled
