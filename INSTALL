@@ -1,8 +1,27 @@
 Installing Speex is as easy as:
 
+1. Using the autotools build system:
+
 % ./configure [--prefix=<install-path>]
 % make
 % make install
 
 Note that if you are using the code from Git, you will need to run "autogen.sh"
 and then "configure".
+
+
+2. Using the Meson build system:
+
+% meson setup builddir [--prefix=<install-path>] [-Doption=value]
+% meson configure builddir (to see configuration options and default values)
+% ninja -C builddir
+% ninja -C builddir install
+
+The Meson build has been tested for Linux, macOS, iOS, Android and
+Windows (MingW + MSVC) targets, both native builds and cross builds.
+
+See meson_options.txt for a list of available configuration options.
+
+More information on how to install Meson and use it can be found here:
+
+    https://mesonbuild.com/Quick-guide.html
