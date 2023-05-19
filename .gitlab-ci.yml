@@ -8,7 +8,7 @@ default:
   stage: build
   before_script:
     - apt-get update &&
-      apt-get install -y libogg-dev
+      apt-get install -y libogg-dev valgrind
   script:
     - ./autogen.sh
     - ./configure ${CONFIG_FLAGS}
@@ -38,6 +38,11 @@ vorbis-psy:
   variables:
     CONFIG_FLAGS: --enable-vorbis-psy
 
+valgrind:
+  extends: .autoconf
+  variables:
+    CONFIG_FLAGS: --enable-valgrind
+
 no-binaries:
   extends: .autoconf
   variables:
@@ -48,7 +53,7 @@ no-binaries:
   image: 'debian:bookworm'
   before_script:
     - apt-get update &&
-      apt-get install -y libogg-dev ninja-build meson
+      apt-get install -y libogg-dev ninja-build meson valgrind
   script:
     - meson setup builddir ${CONFIG_FLAGS}
     - ninja -C builddir
@@ -69,6 +74,11 @@ meson vorbis-psy:
   extends: .meson
   variables:
     CONFIG_FLAGS: -Dvorbis-psy=enabled
+
+meson valgrind:
+  extends: .meson
+  variables:
+    CONFIG_FLAGS: -Dvalgrind=enabled
 
 meson no-binaries:
   extends: .meson
