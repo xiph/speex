@@ -1,0 +1,14 @@
+{
+  "name": "speex",
+  "version": "1.2.1",
+  "headers": "speex.h",
+  "build": {
+    "srcDir": "./libspeex"
+  },
+  "homepage": "https://www.speex.org/",
+  "repository":
+  {
+      "type": "git",
+      "url": "https://gitlab.xiph.org/xiph/speex.git"
+  }
+}
