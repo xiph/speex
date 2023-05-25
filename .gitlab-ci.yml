@@ -59,6 +59,7 @@ no-binaries:
     - ninja -C builddir
     - ninja -C builddir test
     - ninja -C builddir install
+    - test $(head -n1 meson.build | awk '/version/ { printf $NF }'  | sed s/[\"\',]//g) = $(awk '/version/ { printf $NF }' library.json | sed s/[\"\',]//g)
 
 meson fixed-point:
   extends: .meson
