@@ -14,6 +14,9 @@ default:
     - ./configure ${CONFIG_FLAGS}
     - make
     - make check
+  variables:
+     GITLAB_DEPENDENCY_PROXY: registry.hub.docker.com/library/
+     CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX: registry.hub.docker.com/library
 
 autoconf:
   extends: .autoconf
