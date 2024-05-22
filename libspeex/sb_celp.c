@@ -64,9 +64,6 @@
 
 #ifndef DISABLE_WIDEBAND
 
-
-#define sqr(x) ((x)*(x))
-
 #define SUBMODE(x) st->submodes[st->submodeID]->x
 
 #ifdef FIXED_POINT
