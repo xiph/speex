@@ -93,13 +93,6 @@ static const float exc_gain_quant_scal1[2]={0.70469f, 1.05127f};
 
 #endif
 
-#ifdef VORBIS_PSYCHO
-#define EXTRA_BUFFER 100
-#else
-#define EXTRA_BUFFER 0
-#endif
-
-
 extern const spx_word16_t lag_window[];
 extern const spx_word16_t lpc_window[];
 
