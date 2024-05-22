@@ -1472,6 +1472,10 @@ int nb_decode(void *state, SpeexBits *bits, void *vout)
       /* Final signal synthesis from excitation */
       iir_mem16(st->exc, lpc, out, NB_FRAME_SIZE, NB_ORDER, st->mem_sp, stack);
 
+      /* Normally this is written to later but since this is returning early,
+         avoid reading uninitialized memory in caller */
+      SPEEX_MEMSET(st->innov_save, 0, NB_NB_SUBFRAMES*NB_SUBFRAME_SIZE);
+
       st->count_lost=0;
       return 0;
    }
