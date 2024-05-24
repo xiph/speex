@@ -27,8 +27,8 @@ typedef struct SpeexJitter {
    spx_int32_t frame_size;           /**< Frame size of Speex decoder */
 } SpeexJitter;
 
-/** Initialise jitter buffer 
- * 
+/** Initialise jitter buffer
+ *
  * @param jitter State of the Speex jitter buffer
  * @param decoder Speex decoder to call
  * @param sampling_rate Sampling rate used by the decoder

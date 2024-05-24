@@ -2,7 +2,7 @@
    Copyright (C) 2004-2006 Jean-Marc Valin
    Copyright (C) 2006 Commonwealth Scientific and Industrial Research
                       Organisation (CSIRO) Australia
-   
+
    Redistribution and use in source and binary forms, with or without
    modification, are permitted provided that the following conditions are
    met:
@@ -28,7 +28,7 @@
    STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
    ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
    POSSIBILITY OF SUCH DAMAGE.
- 
+
 */
 
 #ifndef ALSA_DEVICE_H
