@@ -1467,7 +1467,8 @@ int nb_decode(void *state, SpeexBits *bits, void *vout)
 
       /* Normally this is written to later but since this is returning early,
          avoid reading uninitialized memory in caller */
-      SPEEX_MEMSET(st->innov_save, 0, NB_NB_SUBFRAMES*NB_SUBFRAME_SIZE);
+      if (st->innov_save)
+         SPEEX_MEMSET(st->innov_save, 0, NB_NB_SUBFRAMES*NB_SUBFRAME_SIZE);
 
       st->count_lost=0;
       return 0;
