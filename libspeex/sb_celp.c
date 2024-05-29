@@ -1293,6 +1293,9 @@ int sb_decode(void *state, SpeexBits *bits, void *vout)
 
       qmf_synth(out, out+st->frame_size, h0, out, st->full_frame_size, QMF_ORDER, st->g0_mem, st->g1_mem, stack);
 
+      if (st->innov_save)
+         SPEEX_MEMSET(st->innov_save, 0, st->full_frame_size);
+
       return 0;
 
    }
