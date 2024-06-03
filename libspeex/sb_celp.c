@@ -1277,6 +1277,9 @@ int sb_decode(void *state, SpeexBits *bits, void *vout)
    /* If null mode (no transmission), just set a couple things to zero*/
    if (st->submodes[st->submodeID] == NULL)
    {
+      if (st->innov_save)
+        SPEEX_MEMSET(st->innov_save, 0, st->full_frame_size);
+
       if (dtx)
       {
          sb_decode_lost(st, out, 1, stack);
@@ -1292,9 +1295,6 @@ int sb_decode(void *state, SpeexBits *bits, void *vout)
       iir_mem16(out+st->frame_size, st->interp_qlpc, out+st->frame_size, st->frame_size, st->lpcSize, st->mem_sp, stack);
 
       qmf_synth(out, out+st->frame_size, h0, out, st->full_frame_size, QMF_ORDER, st->g0_mem, st->g1_mem, stack);
-
-      if (st->innov_save)
-         SPEEX_MEMSET(st->innov_save, 0, st->full_frame_size);
 
       return 0;
 
