@@ -85,3 +85,41 @@ meson no-binaries:
   extends: .meson
   variables:
     CONFIG_FLAGS: -Dtools=disabled -Dtest-binaries=disabled
+
+variables:
+  SANITIZER: address
+  CFL_PLATFORM: gitlab
+  DOCKER_HOST: "tcp://docker:2375"
+  DOCKER_IN_DOCKER: "true" # may be removed in self-managed GitLab instances
+  DOCKER_TLS_CERTDIR: ""
+
+clusterfuzzlite:
+  tags:
+    - dind
+  image:
+    name: gcr.io/oss-fuzz-base/clusterfuzzlite-run-fuzzers:v1
+    entrypoint: [""]
+  services:
+    - name: docker:dind # may be removed in self-managed GitLab instances
+      command: ["--tls=false"]
+
+  stage: test
+  parallel:
+    matrix:
+      - SANITIZER: [address, undefined, memory]
+  rules:
+    # Default code change.
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      variables:
+        MODE: "code-change"
+  before_script:
+    # Get GitLab's container id.
+    - export CFL_CONTAINER_ID=`docker ps -q -f "label=com.gitlab.gitlab-runner.job.id=$CI_JOB_ID" -f "label=com.gitlab.gitlab-runner.type=build"`
+  script:
+    # Will build and run the fuzzers.
+    - python3 "/opt/oss-fuzz/infra/cifuzz/cifuzz_combined_entrypoint.py"
+  artifacts:
+    # Upload artifacts when a crash makes the job fail.
+    when: always
+    paths:
+      - artifacts/
