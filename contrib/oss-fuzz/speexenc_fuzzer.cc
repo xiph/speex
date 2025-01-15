@@ -54,23 +54,25 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size)
     FuzzedDataProvider fdp(data, size);
 
     int num_channels = fdp.PickValueInArray(channels);
-    int sampling_rate = fdp.PickValueInArray(sampling_rates);
-    int modeID = fdp.PickValueInArray(modes);
-    int quality = fdp.ConsumeIntegralInRange(0, 10);
-    int complexity = fdp.ConsumeIntegralInRange(0, 10);
-    int vbr_max = fdp.ConsumeIntegralInRange(1, 20000);
-    int bitrate = fdp.ConsumeIntegralInRange(1, 20000);
-    bool vbr_enabled = fdp.ConsumeBool();
-    bool vad_enabled = fdp.ConsumeBool();
-    bool abr_enabled = fdp.ConsumeBool();
-    bool dtx_enabled = fdp.ConsumeBool();
-    bool highpass_enabled = fdp.ConsumeBool();
+    spx_int32_t sampling_rate = fdp.PickValueInArray(sampling_rates);
+    spx_int32_t modeID = fdp.PickValueInArray(modes);
+    spx_int32_t quality = fdp.ConsumeIntegralInRange(0, 10);
+    spx_int32_t complexity = fdp.ConsumeIntegralInRange(0, 10);
+    spx_int32_t vbr_max = fdp.ConsumeIntegralInRange(1, 20000);
+    spx_int32_t bitrate = fdp.ConsumeIntegralInRange(1, 20000);
+
+    /* speex_encoder_ctl expects spx_int32_t, not bools */
+    spx_int32_t vbr_enabled = fdp.ConsumeBool();
+    spx_int32_t vad_enabled = fdp.ConsumeBool();
+    spx_int32_t abr_enabled = fdp.ConsumeBool();
+    spx_int32_t dtx_enabled = fdp.ConsumeBool();
+    spx_int32_t highpass_enabled = fdp.ConsumeBool();
 
     spx_int32_t lookahead = 0;
     float vbr_quality = quality;
 
     const SpeexMode *mode;
-    int frame_size;
+    spx_int32_t frame_size;
     int nb_encoded = 0;
     SpeexBits bits;
     char cbits[MAX_FRAME_BYTES];
