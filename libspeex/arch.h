@@ -107,6 +107,7 @@ typedef spx_word32_t spx_sig_t;
 #define SIG_SHIFT    14
 #define GAIN_SHIFT   6
 
+#define EPSILON 1
 #define VERY_SMALL 0
 #define VERY_LARGE32 ((spx_word32_t)2147483647)
 #define VERY_LARGE16 ((spx_word16_t)32767)
@@ -148,6 +149,7 @@ typedef float spx_word32_t;
 #define GAIN_SCALING_1 1.f
 
 
+#define EPSILON 1e-15f
 #define VERY_SMALL 1e-15f
 #define VERY_LARGE32 1e15f
 #define VERY_LARGE16 1e15f
