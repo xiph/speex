@@ -153,11 +153,11 @@ EXPORT void speex_encode_stereo_int(spx_int16_t *data, int frame_size, SpeexBits
    int balance_id;
 #ifdef FIXED_POINT
    int shift;
-#endif
    int sqr_shift;
 
    /* Avoid overflows when summing squares */
    sqr_shift = frame_size >= 512 ? 9 : 8;
+#endif
 
    /* In band marker */
    speex_bits_pack(bits, 14, 5);
