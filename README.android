@@ -1,0 +1,17 @@
+#Using Speex on Android
+
+##Introduction
+------------
+
+The android/ directory contains android ndk-build dependent files:
+-config.h   Configuration options for android arm platform
+-speex_config_types.h   Configuration options for android arm platform
+-jni  Build script for android ndk-build
+
+##Build
+Just need run cmd: cd android && ndk-build
+
+##Standalone toolchain
+If you have ndk standalone toolchain, just need run cmd:
+export CC=arm-linux-androideabi-gcc && ./configure --host=arm --enable-arm5e-asm --enable-fixed-point --disable-float-api && make -j4
+
