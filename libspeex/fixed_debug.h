@@ -56,13 +56,7 @@ static inline short NEG16(int x)
    }
    res = -x;
    if (!VERIFY_SHORT(res))
-   {
-		fprintf (stderr, "NEG16: output is not short: %d\n", (int)res);
-		if (res > 32767)
-		  res = 32767;
-		if (res < -32768)
-		  res = -32768;
-   }
+      fprintf (stderr, "NEG16: output is not short: %d\n", (int)res);
    spx_mips++;
    return res;
 }
@@ -116,13 +110,7 @@ static inline short _SHR16(int a, int shift, char *file, int line)
    }
    res = a>>shift;
    if (!VERIFY_SHORT(res))
-   {
-		fprintf (stderr, "SHR16: output is not short: %d in %s: line %d\n", res, file, line);
-		if (res > 32767)
-		  res = 32767;
-		if (res < -32768)
-		  res = -32768;
-   }
+      fprintf (stderr, "SHR16: output is not short: %d in %s: line %d\n", res, file, line);
    spx_mips++;
    return res;
 }
@@ -136,13 +124,7 @@ static inline short _SHL16(int a, int shift, char *file, int line)
    }
    res = (int)((unsigned)a<<shift);
    if (!VERIFY_SHORT(res))
-   {
-		fprintf (stderr, "SHL16: output is not short: %d in %s: line %d\n", res, file, line);
-		if (res > 32767)
-		  res = 32767;
-		if (res < -32768)
-		  res = -32768;
-   }
+      fprintf (stderr, "SHL16: output is not short: %d in %s: line %d\n", res, file, line);
    spx_mips++;
    return res;
 }
@@ -199,11 +181,7 @@ static inline short _ADD16(int a, int b, char *file, int line)
    res = a+b;
    if (!VERIFY_SHORT(res))
    {
-		fprintf (stderr, "ADD16: output is not short: %d+%d=%d in %s: line %d\n", a,b,res, file, line);
-		if (res > 32767)
-		  res = 32767;
-		if (res < -32768)
-		  res = -32768;
+      fprintf (stderr, "ADD16: output is not short: %d+%d=%d in %s: line %d\n", a,b,res, file, line);
    }
    spx_mips++;
    return res;
@@ -219,13 +197,7 @@ static inline short _SUB16(int a, int b, char *file, int line)
    }
    res = a-b;
    if (!VERIFY_SHORT(res))
-   {
-		fprintf (stderr, "SUB16: output is not short: %d in %s: line %d\n", res, file, line);
-		if (res > 32767)
-		  res = 32767;
-		if (res < -32768)
-		  res = -32768;
-   }
+      fprintf (stderr, "SUB16: output is not short: %d in %s: line %d\n", res, file, line);
    spx_mips++;
    return res;
 }
@@ -255,14 +227,8 @@ static inline int SUB32(long long a, long long b)
       fprintf (stderr, "SUB32: inputs are not int: %d %d\n", (int)a, (int)b);
    }
    res = a-b;
-   if (!VERIFY_SHORT(res))
-   {
-		fprintf (stderr, "SUB32: output is not int: %d\n", (int)res);
-		if (res > 32767)
-		  res = 32767;
-		if (res < -32768)
-		  res = -32768;
-   }
+   if (!VERIFY_INT(res))
+      fprintf (stderr, "SUB32: output is not int: %d\n", (int)res);
    spx_mips++;
    return res;
 }
@@ -279,13 +245,7 @@ static inline short MULT16_16_16(int a, int b)
    }
    res = a*b;
    if (!VERIFY_SHORT(res))
-   {
-		fprintf (stderr, "MULT16_16_16: output is not short: %d\n", res);
-		if (res > 32767)
-		  res = 32767;
-		if (res < -32768)
-		  res = -32768;
-   }
+      fprintf (stderr, "MULT16_16_16: output is not short: %d\n", res);
    spx_mips++;
    return res;
 }
@@ -369,14 +329,8 @@ static inline int MULT16_16_Q11_32(int a, int b)
    }
    res = ((long long)a)*b;
    res >>= 11;
-	if (!VERIFY_SHORT(res))
-	{
-		fprintf (stderr, "MULT16_16_Q11: output is not short: %d*%d=%d\n", (int)a, (int)b, (int)res);
-		if (res > 32767)
-		  res = 32767;
-		if (res < -32768)
-		  res = -32768;
-	}
+   if (!VERIFY_INT(res))
+      fprintf (stderr, "MULT16_16_Q11: output is not short: %d*%d=%d\n", (int)a, (int)b, (int)res);
    spx_mips+=3;
    return res;
 }
@@ -390,13 +344,7 @@ static inline short MULT16_16_Q13(int a, int b)
    res = ((long long)a)*b;
    res >>= 13;
    if (!VERIFY_SHORT(res))
-   {
-		fprintf (stderr, "MULT16_16_Q13: output is not short: %d*%d=%d\n", a, b, (int)res);
-		if (res > 32767)
-		  res = 32767;
-		if (res < -32768)
-		  res = -32768;
-   }
+      fprintf (stderr, "MULT16_16_Q13: output is not short: %d*%d=%d\n", a, b, (int)res);
    spx_mips+=3;
    return res;
 }
@@ -410,13 +358,7 @@ static inline short MULT16_16_Q14(int a, int b)
    res = ((long long)a)*b;
    res >>= 14;
    if (!VERIFY_SHORT(res))
-   {
-		fprintf (stderr, "MULT16_16_Q14: output is not short: %d\n", (int)res);
-		if (res > 32767)
-		  res = 32767;
-		if (res < -32768)
-		  res = -32768;
-   }
+      fprintf (stderr, "MULT16_16_Q14: output is not short: %d\n", (int)res);
    spx_mips+=3;
    return res;
 }
@@ -431,11 +373,7 @@ static inline short MULT16_16_Q15(int a, int b)
    res >>= 15;
    if (!VERIFY_SHORT(res))
    {
-		fprintf(stderr, "MULT16_16_P14: output is not short: %d*%d=%d\n", a, b, (int)res);
-		if (res > 32767)
-		  res = 32767;
-		if (res < -32768)
-		  res = -32768;
+      fprintf (stderr, "MULT16_16_Q15: output is not short: %d\n", (int)res);
    }
    spx_mips+=3;
    return res;
@@ -454,13 +392,7 @@ static inline short MULT16_16_P13(int a, int b)
       fprintf (stderr, "MULT16_16_P13: overflow: %d*%d=%d\n", a, b, (int)res);
    res >>= 13;
    if (!VERIFY_SHORT(res))
-   {
-		fprintf (stderr, "MULT16_16_P13: output is not short: %d*%d=%d\n", a, b, (int)res);
-		if (res > 32767)
-		  res = 32767;
-		if (res < -32768)
-		  res = -32768;
-   }
+      fprintf (stderr, "MULT16_16_P13: output is not short: %d*%d=%d\n", a, b, (int)res);
    spx_mips+=4;
    return res;
 }
@@ -477,13 +409,7 @@ static inline short MULT16_16_P14(int a, int b)
       fprintf (stderr, "MULT16_16_P14: overflow: %d*%d=%d\n", a, b, (int)res);
    res >>= 14;
    if (!VERIFY_SHORT(res))
-   {
-		fprintf(stderr, "MULT16_16_P14: output is not short: %d*%d=%d\n", a, b, (int)res);
-		if (res > 32767)
-		  res = 32767;
-		if (res < -32768)
-		  res = -32768;
-   }
+      fprintf (stderr, "MULT16_16_P14: output is not short: %d*%d=%d\n", a, b, (int)res);
    spx_mips+=4;
    return res;
 }
@@ -500,13 +426,7 @@ static inline short MULT16_16_P15(int a, int b)
       fprintf (stderr, "MULT16_16_P15: overflow: %d*%d=%d\n", a, b, (int)res);
    res >>= 15;
    if (!VERIFY_SHORT(res))
-   {
-		fprintf(stderr, "MULT16_16_P14: output is not short: %d*%d=%d\n", a, b, (int)res);
-		if (res > 32767)
-		  res = 32767;
-		if (res < -32768)
-		  res = -32768;
-   }
+      fprintf (stderr, "MULT16_16_P15: output is not short: %d*%d=%d\n", a, b, (int)res);
    spx_mips+=4;
    return res;
 }
