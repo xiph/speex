@@ -155,6 +155,7 @@ int add_fisbone_to_stream(ogg_stream_state *os, fisbone_packet *fp) {
 
     op = ogg_from_fisbone(fp);
     ogg_stream_packetin(os, &op);
+    free(fp->message_header_fields);
     _ogg_free(op.packet);
 
     return 0;
