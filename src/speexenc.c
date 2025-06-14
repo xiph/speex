@@ -542,11 +542,14 @@ int main(int argc, char **argv)
    if (ogg_stream_init(&os, rand())==-1)
    {
       fprintf(stderr,"Error: stream init failed\n");
+      free(comments);
       exit(1);
    }
    if (with_skeleton && ogg_stream_init(&so, rand())==-1)
    {
       fprintf(stderr,"Error: stream init failed\n");
+      ogg_stream_clear(&os);
+      free(comments);
       exit(1);
    }
 
@@ -565,6 +568,10 @@ int main(int argc, char **argv)
       if (!fin)
       {
          perror(inFile);
+         if (with_skeleton)
+            ogg_stream_clear(&so);
+         ogg_stream_clear(&os);
+         free(comments);
          exit(1);
       }
       close_in=1;
@@ -574,12 +581,22 @@ int main(int argc, char **argv)
       if (fread(first_bytes, 1, 12, fin) != 12)
       {
          perror("short file");
+         if (with_skeleton)
+            ogg_stream_clear(&so);
+         ogg_stream_clear(&os);
+         free(comments);
          exit(1);
       }
       if (strncmp(first_bytes,"RIFF",4)==0 || strncmp(first_bytes,"riff",4)==0)
       {
          if (read_wav_header(fin, &rate, &chan, &fmt, &size)==-1)
+         {
+            if (with_skeleton)
+               ogg_stream_clear(&so);
+            ogg_stream_clear(&os);
+            free(comments);
             exit(1);
+         }
          wave_input=1;
          lsb=1; /* CHECK: exists big-endian .wav ?? */
       }
@@ -596,6 +613,10 @@ int main(int argc, char **argv)
       if (rate>48000)
       {
          fprintf (stderr, "Error: sampling rate too high: %d Hz, try down-sampling\n", rate);
+         if (with_skeleton)
+            ogg_stream_clear(&so);
+         ogg_stream_clear(&os);
+         free(comments);
          exit(1);
       } else if (rate>25000)
       {
@@ -617,6 +638,10 @@ int main(int argc, char **argv)
          }
       } else {
          fprintf (stderr, "Error: sampling rate too low: %d Hz\n", rate);
+         if (with_skeleton)
+            ogg_stream_clear(&so);
+         ogg_stream_clear(&os);
+         free(comments);
          exit(1);
       }
    } else if (modeID==-1)
@@ -624,6 +649,10 @@ int main(int argc, char **argv)
       if (rate>48000)
       {
          fprintf (stderr, "Error: sampling rate too high: %d Hz, try down-sampling\n", rate);
+         if (with_skeleton)
+            ogg_stream_clear(&so);
+         ogg_stream_clear(&os);
+         free(comments);
          exit(1);
       } else if (rate>25000)
       {
@@ -636,6 +665,10 @@ int main(int argc, char **argv)
          modeID = SPEEX_MODEID_NB;
       } else {
          fprintf (stderr, "Error: Sampling rate too low: %d Hz\n", rate);
+         if (with_skeleton)
+            ogg_stream_clear(&so);
+         ogg_stream_clear(&os);
+         free(comments);
          exit(1);
       }
    } else if (!rate)
@@ -687,6 +720,10 @@ int main(int argc, char **argv)
       if (!fout)
       {
          perror(outFile);
+         if (with_skeleton)
+            ogg_stream_clear(&so);
+         ogg_stream_clear(&os);
+         free(comments);
          exit(1);
       }
       close_out=1;
@@ -759,6 +796,11 @@ int main(int argc, char **argv)
       add_fishead_packet(&so);
       if ((ret = flush_ogg_stream_to_file(&so, fout))) {
          fprintf (stderr,"Error: failed skeleton (fishead) header to output stream\n");
+         speex_encoder_destroy(st);
+         if (with_skeleton)
+            ogg_stream_clear(&so);
+         ogg_stream_clear(&os);
+         free(comments);
          exit(1);
       } else
          bytes_written += ret;
@@ -783,6 +825,11 @@ int main(int argc, char **argv)
          if(ret != og.header_len + og.body_len)
          {
             fprintf (stderr,"Error: failed writing header to output stream\n");
+            speex_encoder_destroy(st);
+            if (with_skeleton)
+               ogg_stream_clear(&so);
+            ogg_stream_clear(&os);
+            free(comments);
             exit(1);
          }
          else
@@ -803,6 +850,10 @@ int main(int argc, char **argv)
       add_fisbone_packet(&so, os.serialno, &header);
       if ((ret = flush_ogg_stream_to_file(&so, fout))) {
          fprintf (stderr,"Error: failed writing skeleton (fisbone )header to output stream\n");
+         speex_encoder_destroy(st);
+         ogg_stream_clear(&so);
+         ogg_stream_clear(&os);
+         free(comments);
          exit(1);
       } else
          bytes_written += ret;
@@ -816,6 +867,11 @@ int main(int argc, char **argv)
       if(ret != og.header_len + og.body_len)
       {
          fprintf (stderr,"Error: failed writing header to output stream\n");
+         speex_encoder_destroy(st);
+         if (with_skeleton)
+            ogg_stream_clear(&so);
+         ogg_stream_clear(&os);
+         free(comments);
          exit(1);
       }
       else
@@ -829,6 +885,9 @@ int main(int argc, char **argv)
       add_eos_packet_to_stream(&so);
       if ((ret = flush_ogg_stream_to_file(&so, fout))) {
          fprintf (stderr,"Error: failed writing skeleton header to output stream\n");
+         speex_encoder_destroy(st);
+         ogg_stream_clear(&so);
+         ogg_stream_clear(&os);
          exit(1);
       } else
          bytes_written += ret;
@@ -924,6 +983,11 @@ int main(int argc, char **argv)
          if(ret != og.header_len + og.body_len)
          {
             fprintf (stderr,"Error: failed writing header to output stream\n");
+            speex_bits_destroy(&bits);
+            speex_encoder_destroy(st);
+            if (with_skeleton)
+               ogg_stream_clear(&so);
+            ogg_stream_clear(&os);
             exit(1);
          }
          else
@@ -956,6 +1020,11 @@ int main(int argc, char **argv)
       if(ret != og.header_len + og.body_len)
       {
          fprintf (stderr,"Error: failed writing header to output stream\n");
+         speex_bits_destroy(&bits);
+         speex_encoder_destroy(st);
+         if (with_skeleton)
+            ogg_stream_clear(&so);
+         ogg_stream_clear(&os);
          exit(1);
       }
       else
@@ -964,6 +1033,9 @@ int main(int argc, char **argv)
 
    speex_encoder_destroy(st);
    speex_bits_destroy(&bits);
+
+   if (with_skeleton)
+       ogg_stream_clear(&so);
    ogg_stream_clear(&os);
 
    if (close_in)
