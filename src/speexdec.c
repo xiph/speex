@@ -760,6 +760,8 @@ int main(int argc, char **argv)
       if (feof(fin))
          break;
 
+      if (nb_read == 0)
+         break;
    }
 
    if (fout && wav_format)
