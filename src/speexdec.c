@@ -605,6 +605,13 @@ int main(int argc, char **argv)
       data = ogg_sync_buffer(&oy, 200);
       /*Read bitstream from input file*/
       nb_read = fread(data, sizeof(char), 200, fin);
+      if (nb_read < 200 ) {
+         int err = ferror(fin);
+         if (err) {
+            fprintf(stderr, "Read error: %s\n", strerror(err));
+            break;
+         }
+      }
       ogg_sync_wrote(&oy, nb_read);
 
       /*Loop for all complete pages we got (most likely only one)*/
