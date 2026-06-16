@@ -212,6 +212,10 @@ EXPORT void speex_encode_stereo_int(spx_int16_t *data, int frame_size, SpeexBits
    e_tot = VSHR32(e_tot, shift-25);
    e_left = VSHR32(e_left, shift-10);
    e_right = VSHR32(e_right, shift-10);
+   if (e_left > 32767)
+      e_left = 32767;
+   if (e_right > 32767)
+      e_right = 32767;
    e_ratio = DIV32(e_tot, e_left+e_right+1);
 #else
    e_ratio = e_tot/(1.+e_left+e_right);
