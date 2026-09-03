@@ -43,3 +43,8 @@ src/speexdec
 src/speexenc
 stamp-*
 patches
+
+# Swift Package Manager
+/.build/
+/.swiftpm/
+/DerivedData/
