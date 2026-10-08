@@ -300,7 +300,11 @@ int sb_encoder_ctl(void *state, int request, void *ptr)
       {
          spx_int32_t q;
          float qual = (*(float*)ptr)+.6;
-         st->vbr_quality = (*(float*)ptr);
+          st->vbr_quality = (*(float*)ptr);
+         if (st->vbr_quality < 0)
+            st->vbr_quality = 0;
+         else if (st->vbr_quality > 10)
+            st->vbr_quality = 10;
          if (qual>10)
             qual=10;
          q=(int)floor(.5+*(float*)ptr);
