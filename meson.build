@@ -68,10 +68,16 @@ if host_cpu_family in ['x86', 'x86_64'] and get_option('sse').allowed()
                       return 0;
                     }
                  '''
-  # Intrinsics arguments are not available with MSVC-like compilers
-  intrin_args = cc.get_argument_syntax() == 'msvc' ? [] : ['-msse']
-  if cc.links(intrin_check, name: 'Compiler supports SEE intrinsics', args: intrin_args)
+  # Like autoconf, only auto-enable SSE if the current arch/CFLAGS already
+  # support it (e.g. x86_64), and only add -msse when explicitly requested.
+  if cc.links(intrin_check, name: 'SSE in current arch/CFLAGS')
     has_sse = true
+  elif get_option('sse').enabled() and cc.get_argument_syntax() != 'msvc'
+    # Intrinsics arguments are not available with MSVC-like compilers
+    if cc.links(intrin_check, name: 'Compiler supports SSE intrinsics with -msse', args: ['-msse'])
+      has_sse = true
+      add_project_arguments('-msse', language: 'c')
+    endif
   endif
 
   # Mimicing the logic in win32/config.h
