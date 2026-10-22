@@ -174,7 +174,7 @@ EXPORT void speex_bits_read_whole_bytes(SpeexBits *bits, const char *chars, int 
          }
       } else {
          speex_warning("Do not own input buffer: truncating oversize input");
-         nchars=bits->buf_size;
+         nchars=bits->buf_size-(bits->nbBits>>LOG2_BITS_PER_CHAR)-1;
       }
    }
 
