@@ -300,6 +300,12 @@ void open_loop_nbest_pitch(spx_word16_t *sw, int start, int end, int len, int *p
          /* FIXME: g = max(g,corr/energy) */
          if (g<0)
             g = 0;
+#ifndef FIXED_POINT
+         /* The recursive energy update above can lose all precision in
+            float, so keep g within its bound for exact arithmetic */
+         if (g>1)
+            g = 1;
+#endif
          gain[j]=g;
       }
    }
