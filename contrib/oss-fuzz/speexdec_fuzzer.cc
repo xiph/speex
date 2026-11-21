@@ -210,7 +210,7 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t *fuzz_data, size_t fuzz_size
       nb_read = bytes_remaining > 200 ? 200 : bytes_remaining;
       data = ogg_sync_buffer(&oy, nb_read);
       /*Read bitstream from data*/
-      memcpy(data, fuzz_data, nb_read);
+      memcpy(data, fuzz_data + (fuzz_size - bytes_remaining), nb_read);
       ogg_sync_wrote(&oy, nb_read);
       bytes_remaining -= nb_read;
 
