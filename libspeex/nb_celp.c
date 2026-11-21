@@ -1183,8 +1183,25 @@ int nb_decoder_ctl(void *state, int request, void *ptr)
          int i;
          for (i=0;i<NB_ORDER;i++)
             st->mem_sp[i]=0;
-         for (i=0;i<NB_FRAME_SIZE + NB_PITCH_END + 1;i++)
+         for (i=0;i<NB_DEC_BUFFER;i++)
             st->excBuf[i]=0;
+         for (i=0;i<NB_ORDER;i++)
+            st->old_qlsp[i]=st->interp_qlpc[i]=0;
+         for (i=0;i<NB_NB_SUBFRAMES;i++)
+            st->pi_gain[i]=0;
+         st->mem_hp[0]=st->mem_hp[1]=0;
+         st->first=1;
+         st->last_pitch=40;
+         st->count_lost=0;
+         st->pitch_gain_buf[0]=st->pitch_gain_buf[1]=st->pitch_gain_buf[2]=0;
+         st->pitch_gain_buf_idx=0;
+         st->last_pitch_gain=0;
+         st->last_ol_gain=0;
+         st->seed=1000;
+         st->voc_m1=st->voc_m2=st->voc_mean=0;
+         st->voc_offset=0;
+         st->level=st->max_level=st->min_level=0;
+         st->dtx_enabled=0;
       }
       break;
    case SPEEX_SET_SUBMODE_ENCODING:
