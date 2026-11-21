@@ -1117,6 +1117,13 @@ int sb_decoder_ctl(void *state, int request, void *ptr)
          for (i=0;i<QMF_ORDER;i++)
             st->g0_mem[i]=st->g1_mem[i]=0;
          st->last_ener=0;
+         for (i=0;i<st->subframeSize;i++)
+            st->excBuf[i]=0;
+         for (i=0;i<st->lpcSize;i++)
+            st->old_qlsp[i]=st->interp_qlpc[i]=0;
+         st->first=1;
+         st->seed=1000;
+         speex_decoder_ctl(st->st_low, SPEEX_RESET_STATE, NULL);
       }
       break;
    case SPEEX_SET_SUBMODE_ENCODING:
