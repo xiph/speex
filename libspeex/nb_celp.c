@@ -326,11 +326,23 @@ int nb_encoder_ctl(void *state, int request, void *ptr)
          for (i=0;i<NB_ORDER;i++)
             st->old_lsp[i]= DIV32(MULT16_16(QCONST16(3.1415927f, LSP_SHIFT), i+1), NB_ORDER+1);
          for (i=0;i<NB_ORDER;i++)
-            st->mem_sw[i]=st->mem_sw_whole[i]=st->mem_sp[i]=st->mem_exc[i]=0;
-         for (i=0;i<NB_FRAME_SIZE+NB_PITCH_END+1;i++)
+            st->mem_sw[i]=st->mem_sw_whole[i]=st->mem_sp[i]=st->mem_exc[i]=st->mem_exc2[i]=0;
+         for (i=0;i<NB_EXCBUF;i++)
             st->excBuf[i]=st->swBuf[i]=0;
          for (i=0;i<NB_WINDOW_SIZE-NB_FRAME_SIZE;i++)
             st->winBuf[i]=0;
+         st->mem_hp[0]=st->mem_hp[1]=0;
+         st->cumul_gain = 1024;
+#ifndef DISABLE_VBR
+         vbr_init(&st->vbr);
+         st->dtx_count=0;
+         if (st->abr_enabled)
+         {
+            /* Restart ABR from the quality derived from the target bitrate */
+            spx_int32_t abr = st->abr_enabled;
+            nb_encoder_ctl(st, SPEEX_SET_ABR, &abr);
+         }
+#endif /* #ifndef DISABLE_VBR */
       }
       break;
    case SPEEX_SET_SUBMODE_ENCODING:
@@ -1183,8 +1195,25 @@ int nb_decoder_ctl(void *state, int request, void *ptr)
          int i;
          for (i=0;i<NB_ORDER;i++)
             st->mem_sp[i]=0;
-         for (i=0;i<NB_FRAME_SIZE + NB_PITCH_END + 1;i++)
+         for (i=0;i<NB_DEC_BUFFER;i++)
             st->excBuf[i]=0;
+         for (i=0;i<NB_ORDER;i++)
+            st->old_qlsp[i]=st->interp_qlpc[i]=0;
+         for (i=0;i<NB_NB_SUBFRAMES;i++)
+            st->pi_gain[i]=0;
+         st->mem_hp[0]=st->mem_hp[1]=0;
+         st->first=1;
+         st->last_pitch=40;
+         st->count_lost=0;
+         st->pitch_gain_buf[0]=st->pitch_gain_buf[1]=st->pitch_gain_buf[2]=0;
+         st->pitch_gain_buf_idx=0;
+         st->last_pitch_gain=0;
+         st->last_ol_gain=0;
+         st->seed=1000;
+         st->voc_m1=st->voc_m2=st->voc_mean=0;
+         st->voc_offset=0;
+         st->level=st->max_level=st->min_level=0;
+         st->dtx_enabled=0;
       }
       break;
    case SPEEX_SET_SUBMODE_ENCODING:

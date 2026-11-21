@@ -418,6 +418,17 @@ int sb_encoder_ctl(void *state, int request, void *ptr)
             st->mem_sw[i]=st->mem_sp[i]=st->mem_sp2[i]=0;
          for (i=0;i<QMF_ORDER;i++)
             st->h0_mem[i]=0;
+         for (i=0;i<st->windowSize-st->frame_size;i++)
+            st->high[i]=0;
+         speex_encoder_ctl(st->st_low, SPEEX_RESET_STATE, NULL);
+#ifndef DISABLE_VBR
+         if (st->abr_enabled)
+         {
+            /* Restart ABR from the quality derived from the target bitrate */
+            spx_int32_t abr = st->abr_enabled;
+            sb_encoder_ctl(st, SPEEX_SET_ABR, &abr);
+         }
+#endif /* #ifndef DISABLE_VBR */
       }
       break;
    case SPEEX_SET_SUBMODE_ENCODING:
@@ -1117,6 +1128,13 @@ int sb_decoder_ctl(void *state, int request, void *ptr)
          for (i=0;i<QMF_ORDER;i++)
             st->g0_mem[i]=st->g1_mem[i]=0;
          st->last_ener=0;
+         for (i=0;i<st->subframeSize;i++)
+            st->excBuf[i]=0;
+         for (i=0;i<st->lpcSize;i++)
+            st->old_qlsp[i]=st->interp_qlpc[i]=0;
+         st->first=1;
+         st->seed=1000;
+         speex_decoder_ctl(st->st_low, SPEEX_RESET_STATE, NULL);
       }
       break;
    case SPEEX_SET_SUBMODE_ENCODING:
