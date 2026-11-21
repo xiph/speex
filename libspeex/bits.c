@@ -368,5 +368,10 @@ EXPORT void speex_bits_insert_terminator(SpeexBits *bits)
    if (bits->bitPtr)
       speex_bits_pack(bits, 0, 1);
    while (bits->bitPtr)
+   {
+      int before = bits->nbBits;
       speex_bits_pack(bits, 1, 1);
+      if (bits->nbBits == before)
+         break;
+   }
 }
